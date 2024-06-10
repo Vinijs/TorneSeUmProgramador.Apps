@@ -3,14 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TodoApp.TorneSeUmProgramador.App.Views.PaginaInicial"
              Title="PaginaInicial">
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="DangerButton">
+            <Setter Property="BackgroundColor" Value="Red" />
+        </Style>
+        <Style TargetType="Button" Class="PrimaryButtom">
+            <Setter Property="BackgroundColor" Value="Blue"></Setter>
+        </Style>
+    </ContentPage.Resources>
     <Grid Padding="10" RowDefinitions="70,*">
         <Entry x:Name="pesquisaEntry" Placeholder="Pesquisar tarefa ..." TextChanged="pesquisaEntry_TextChanged" />
         <CollectionView x:Name="TarefasCollectionView" EmptyView="Não existem tarefas cadastradas" Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <VerticalStackLayout Padding="10">
-                        <Label Text="{Binding Nome}" />
-                        <Label Text="{Binding Descricao}" />
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding Concluida}" />
+                            <StackLayout>
+                                <Label Text="{Binding Nome}" />
+                                <Label Text="{Binding Descricao}" />
+                            </StackLayout>
+                        </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -19,9 +32,6 @@
             Grid.Row="1"
             Text="+ Adicionar Tarefa"
             Clicked="AdicionarTarefa_ButtonClicked"
-            Background="Green"
-            TextColor="White"
-            CornerRadius="10"
             HorizontalOptions="Center"
             VerticalOptions="End" />
     </Grid>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TodoApp.TorneSeUmProgramador.App.Views.AdicionarEditarTarefa"
+             Title="AdicionarEditarTarefa">
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="LblTitle">
+            <Setter Property="FontSize" Value="Title" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        <Style TargetType="Button" x:Key="BtnFechar">
+            <Setter Property="BackgroundColor" Value="Black" />
+        </Style>
+    </ContentPage.Resources>
+    <FlexLayout Direction="Column" JustifyContent="SpaceBetween" Margin="10" >
+        <Grid>
+            <Label 
+            Text="Adicionar / Editar tarefa"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start"
+            Style="{StaticResource LblTitle}"
+            />
+        <Button Text="X" Style="{StaticResource BtnFechar}" Clicked="BtnFechar_Clicked" HorizontalOptions="End" VerticalOptions="Center"/>
+        </Grid>
+
+
+        <StackLayout>
+            <Label Text="Nome tarefa" />
+            <Border StrokeShape="RoundRectangle 10">
+                <Entry Placeholder="Digite o titulo da tarefa..." />
+            </Border>
+        </StackLayout>
+        <StackLayout>
+            <Label Text="Descrição" />
+            <Border HeightRequest="300" StrokeShape="RoundRectangle 10" >
+                <Editor
+                        IsSpellCheckEnabled="True"
+                        IsTextPredictionEnabled="True"
+                        Placeholder="Digite a descrição da tarefa..." 
+                        />
+            </Border>
+        </StackLayout>
+        <StackLayout>
+            <Label Text="Data de conclusão" />
+            <Border StrokeShape="RoundRectangle 10">
+                <DatePicker />
+            </Border>
+        </StackLayout>
+        <Button
+            Text="Salvar"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Clicked="BtnSalvar_Clicked"/>
+    </FlexLayout>
+</ContentPage>
