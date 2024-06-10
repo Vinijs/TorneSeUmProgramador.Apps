@@ -49,7 +49,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Oswald-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Oswald-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\Oswald-Light.ttf" />
+	  <None Remove="Resources\Fonts\Oswald-Medium.ttf" />
+	  <None Remove="Resources\Fonts\Oswald-Regular.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Todo.TorneSeUmProgramador.Core\Todo.TorneSeUmProgramador.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

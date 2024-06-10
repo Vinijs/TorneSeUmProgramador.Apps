@@ -27,7 +27,7 @@
         <StackLayout>
             <Label Text="Nome tarefa" />
             <Border StrokeShape="RoundRectangle 10">
-                <Entry Placeholder="Digite o titulo da tarefa..." />
+                <Entry Placeholder="Digite o titulo da tarefa..." x:Name="nomeTarefaEntry" />
             </Border>
         </StackLayout>
         <StackLayout>
@@ -36,14 +36,15 @@
                 <Editor
                         IsSpellCheckEnabled="True"
                         IsTextPredictionEnabled="True"
-                        Placeholder="Digite a descrição da tarefa..." 
+                        Placeholder="Digite a descrição da tarefa..."
+                        x:Name="descricaoTarefaEditor"
                         />
             </Border>
         </StackLayout>
         <StackLayout>
             <Label Text="Data de conclusão" />
             <Border StrokeShape="RoundRectangle 10">
-                <DatePicker />
+                <DatePicker x:Name="dataTarefaDatePicker" />
             </Border>
         </StackLayout>
         <Button
