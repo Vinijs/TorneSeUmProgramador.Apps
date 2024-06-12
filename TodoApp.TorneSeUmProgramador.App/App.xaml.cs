@@ -9,6 +9,8 @@ namespace TodoApp.TorneSeUmProgramador.App
             InitializeComponent();
 
             MainPage = new PaginaInicial();
+
+            //App.Current.UserAppTheme = AppTheme.Light;
         }
     }
 }

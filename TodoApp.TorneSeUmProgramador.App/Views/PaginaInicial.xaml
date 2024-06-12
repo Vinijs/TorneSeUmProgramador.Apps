@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TodoApp.TorneSeUmProgramador.App.Converters"
              x:Class="TodoApp.TorneSeUmProgramador.App.Views.PaginaInicial"
              Title="PaginaInicial">
     <ContentPage.Resources>
@@ -11,14 +12,16 @@
         <Style TargetType="Button" Class="PrimaryButtom">
             <Setter Property="BackgroundColor" Value="{StaticResource Gray900}"></Setter>
         </Style>
+        <converters:DataConclusaoConverter x:Key="DataConclusaoConverter" />
     </ContentPage.Resources>
-    <Grid Padding="10" RowDefinitions="70,*">
-        <StackLayout>
+    <Grid Padding="10" RowDefinitions="Auto,70,*">
+        <Switch OnColor="Green" ThumbColor="FloralWhite" Toggled="SwitchTheme_Toggled" />
+        <StackLayout Grid.Row="1">
             <Entry x:Name="pesquisaEntry" Placeholder="Pesquisar tarefa ..." 
                    TextChanged="pesquisaEntry_TextChanged" />
             <Label Text="{Binding Source={x:Reference pesquisaEntry}, Path=Text}" />
         </StackLayout>
-        <CollectionView x:Name="TarefasCollectionView" EmptyView="Não existem tarefas cadastradas" Grid.Row="1">
+        <CollectionView x:Name="TarefasCollectionView" EmptyView="Não existem tarefas cadastradas" Grid.Row="2">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <VerticalStackLayout Padding="10">
@@ -27,6 +30,7 @@
                             <StackLayout>
                                 <Label Text="{Binding Nome}" FontFamily="OswaldBold" />
                                 <Label Text="{Binding Descricao}" FontFamily="OswaldLight" />
+                                <Label FontFamily="OswaldLight" Text="{Binding DataConclusao, Converter={StaticResource DataConclusaoConverter}}" />
                             </StackLayout>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
@@ -34,7 +38,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Button
-            Grid.Row="1"
+            Grid.Row="2"
             Text="+ Adicionar Tarefa"
             Clicked="AdicionarTarefa_ButtonClicked"
             HorizontalOptions="Center"            

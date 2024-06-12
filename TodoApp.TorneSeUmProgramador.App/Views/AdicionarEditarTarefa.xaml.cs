@@ -1,13 +1,23 @@
 using Todo.TorneSeUmProgramador.Core.Modelos;
+using Todo.TorneSeUmProgramador.Data.DAO;
 
 namespace TodoApp.TorneSeUmProgramador.App.Views;
 
 public partial class AdicionarEditarTarefa : ContentPage
 {
+    private readonly TarefasDAO _tarefasDAO;
+
 	public AdicionarEditarTarefa()
 	{
 		InitializeComponent();
 	}
+
+    public AdicionarEditarTarefa(TarefasDAO tarefasDAO)
+    {
+        InitializeComponent();
+
+        _tarefasDAO = tarefasDAO;
+    }
 
     private async void BtnFechar_Clicked(object sender, EventArgs e)
     {
@@ -23,6 +33,8 @@ public partial class AdicionarEditarTarefa : ContentPage
             DataConclusao = dataTarefaDatePicker.Date,
             Concluida = false
         };
+
+        _tarefasDAO.Adicionar(tarefa);
 
         await Navigation.PopModalAsync();
     }
