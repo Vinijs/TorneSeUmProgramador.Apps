@@ -17,6 +17,11 @@ public class TarefasDAO
         _contexto.Tarefas.Add(tarefa);
     }
 
+    public void Adicionar(List<Tarefa> tarefas)
+    {
+        _contexto.Tarefas.AddRange(tarefas);
+    }
+
     public void Atualizar(Tarefa tarefa)
     {
         var tarefaExistente = _contexto.Tarefas.FirstOrDefault(x => x.Nome.Equals(tarefa.Nome, StringComparison.InvariantCultureIgnoreCase));

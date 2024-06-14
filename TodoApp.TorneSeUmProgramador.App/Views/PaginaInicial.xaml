@@ -23,19 +23,31 @@
         <CollectionView x:Name="TarefasCollectionView" EmptyView="Não existem tarefas cadastradas" Grid.Row="2">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <VerticalStackLayout Padding="10">
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="AoTocarTarefaIrParaEditar" CommandParameter="{Binding .}" />
-                        </VerticalStackLayout.GestureRecognizers>
-                        <HorizontalStackLayout>
-                            <CheckBox IsChecked="{Binding Concluida}" />
-                            <StackLayout>
-                                <Label Text="{Binding Nome}" FontFamily="OswaldBold" />
-                                <Label Text="{Binding Descricao}" FontFamily="OswaldLight" />
-                                <Label FontFamily="OswaldLight" Text="{Binding DataConclusao, Converter={StaticResource DataConclusaoConverter}}" />
-                            </StackLayout>
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem IconImageSource="trash.png" Invoked="DeletarTarefaSwipeInvoke" CommandParameter="{Binding .}" BackgroundColor="Red" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Border BackgroundColor="Transparent" StrokeThickness="1" 
+                                Stroke="{AppThemeBinding Dark=White,Light=Black}"
+                                StrokeShape="RoundRectangle 10" Margin="0,10">
+                            <VerticalStackLayout Padding="10">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <!--<SwipeGestureRecognizer CommandParameter="{Binding .}" Direction="Left" Swiped="DeletarTarefaLeftSwiped" />-->
+                                    <TapGestureRecognizer Tapped="AoTocarTarefaIrParaEditar" CommandParameter="{Binding .}" />
+                                </VerticalStackLayout.GestureRecognizers>
+                                <HorizontalStackLayout>
+                                    <CheckBox IsChecked="{Binding Concluida}" />
+                                    <StackLayout>
+                                        <Label Text="{Binding Nome}" FontFamily="OswaldBold" />
+                                        <Label Text="{Binding Descricao}" FontFamily="OswaldLight" />
+                                        <Label FontFamily="OswaldLight" Text="{Binding DataConclusao, Converter={StaticResource DataConclusaoConverter}}" />
+                                    </StackLayout>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
