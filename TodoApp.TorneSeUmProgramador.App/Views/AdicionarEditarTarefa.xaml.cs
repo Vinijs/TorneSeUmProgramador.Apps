@@ -1,22 +1,25 @@
+using CommunityToolkit.Mvvm.Messaging;
 using Todo.TorneSeUmProgramador.Core.Modelos;
-using Todo.TorneSeUmProgramador.Data.DAO;
+using TodoApp.TorneSeUmProgramador.App.Messages;
 
 namespace TodoApp.TorneSeUmProgramador.App.Views;
 
 public partial class AdicionarEditarTarefa : ContentPage
 {
-    private readonly TarefasDAO _tarefasDAO;
-
+    private Tarefa _tarefa;
 	public AdicionarEditarTarefa()
 	{
 		InitializeComponent();
 	}
 
-    public AdicionarEditarTarefa(TarefasDAO tarefasDAO)
+    public AdicionarEditarTarefa(Tarefa tarefa)
     {
         InitializeComponent();
 
-        _tarefasDAO = tarefasDAO;
+        nomeTarefaEntry.Text = tarefa.Nome;
+        descricaoTarefaEditor.Text = tarefa.Descricao;
+        dataTarefaDatePicker.Date = tarefa.DataConclusao;
+        _tarefa = tarefa;
     }
 
     private async void BtnFechar_Clicked(object sender, EventArgs e)
@@ -34,7 +37,20 @@ public partial class AdicionarEditarTarefa : ContentPage
             Concluida = false
         };
 
-        _tarefasDAO.Adicionar(tarefa);
+        if(_tarefa is not null)
+        {
+            _tarefa.Nome = tarefa.Nome;
+            _tarefa.Descricao = tarefa.Descricao;
+            _tarefa.DataConclusao = tarefa.DataConclusao;
+
+            WeakReferenceMessenger.Default.Send(new EditarTarefaMessage(_tarefa));
+        }
+        else
+        {
+            _tarefa = tarefa;
+            WeakReferenceMessenger.Default.Send(new NovaTarefaMessage(_tarefa));
+        }
+
 
         await Navigation.PopModalAsync();
     }

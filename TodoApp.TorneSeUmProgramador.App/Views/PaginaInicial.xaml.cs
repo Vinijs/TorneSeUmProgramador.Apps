@@ -1,4 +1,8 @@
+using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.ObjectModel;
+using Todo.TorneSeUmProgramador.Core.Modelos;
 using Todo.TorneSeUmProgramador.Data.DAO;
+using TodoApp.TorneSeUmProgramador.App.Messages;
 
 namespace TodoApp.TorneSeUmProgramador.App.Views;
 
@@ -6,6 +10,7 @@ public partial class PaginaInicial : ContentPage
 {
 	private bool _isDarkTheme = true;
 	private readonly TarefasDAO _tarefasDAO;
+	private ObservableCollection<Tarefa> _tarefas;
 
 	public PaginaInicial()
 	{
@@ -13,17 +18,52 @@ public partial class PaginaInicial : ContentPage
 
 		_tarefasDAO = new TarefasDAO();
 
-		TarefasCollectionView.ItemsSource = _tarefasDAO.Listar(); 
+		_tarefas = new ObservableCollection<Tarefa>(_tarefasDAO.Listar());
+
+		TarefasCollectionView.ItemsSource = _tarefas;
+
+		WeakReferenceMessenger.Default.Register<NovaTarefaMessage>(this, (x, y) =>
+		{
+			_tarefas.Add(y.Value);
+		});
+
+		WeakReferenceMessenger.Default.Register<EditarTarefaMessage>(this, (x,y) =>
+		{
+			var tarefas = _tarefas.Where(x => x.Id != y.Value.Id).ToList();
+
+			_tarefas = new ObservableCollection<Tarefa>(tarefas)
+            {
+                y.Value
+            };
+
+            TarefasCollectionView.ItemsSource = null;
+
+            TarefasCollectionView.ItemsSource = _tarefas;
+		});
 	}
 
     private void pesquisaEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
-
+		if (string.IsNullOrWhiteSpace(e.NewTextValue))
+		{
+			TarefasCollectionView.ItemsSource = _tarefas;
+		}
+		else
+		{
+			TarefasCollectionView.ItemsSource = _tarefas.Where(x => x.Nome.Contains(e.NewTextValue));
+		}
     }
 
     private async void AdicionarTarefa_ButtonClicked(object sender, EventArgs e)
     {
-		await Navigation.PushModalAsync(new AdicionarEditarTarefa(_tarefasDAO));
+		var modal = new AdicionarEditarTarefa();
+		//modal.Disappearing += (s, args) =>
+		//{
+		//	TarefasCollectionView.ItemsSource = new ObservableCollection<Tarefa>(_tarefasDAO.Listar());
+		//};
+
+
+		await Navigation.PushModalAsync(modal);
 	}
 
     #region Exemplos de código
@@ -61,5 +101,13 @@ public partial class PaginaInicial : ContentPage
 			App.Current.UserAppTheme = AppTheme.Light;
 			_isDarkTheme = !_isDarkTheme;
 		}
+    }
+
+    private async void AoTocarTarefaIrParaEditar(object sender, TappedEventArgs e)
+    {
+		var tarefa = (Tarefa)e.Parameter;
+		var modal = new AdicionarEditarTarefa(tarefa);
+
+		await Navigation.PushModalAsync(modal);
     }
 }

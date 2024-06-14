@@ -12,16 +12,17 @@
             <Setter Property="BackgroundColor" Value="Black" />
         </Style>
     </ContentPage.Resources>
-    <FlexLayout Direction="Column" JustifyContent="SpaceBetween" Margin="10" >
-        <Grid>
-            <Label 
+    <FlexLayout Direction="Column" JustifyContent="SpaceBetween" Margin="20" >
+        <StackLayout Orientation="Horizontal">
+            <Label
             Text="Adicionar / Editar tarefa"
             VerticalOptions="Center" 
-            HorizontalOptions="Start"
+            HorizontalOptions="Center"
             Style="{StaticResource LblTitle}"
+            WidthRequest="280"
             />
-        <Button Text="X" Style="{StaticResource BtnFechar}" Clicked="BtnFechar_Clicked" HorizontalOptions="End" VerticalOptions="Center"/>
-        </Grid>
+        <Button Text="X" Style="{StaticResource BtnFechar}" Clicked="BtnFechar_Clicked" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </StackLayout>
 
 
         <StackLayout>

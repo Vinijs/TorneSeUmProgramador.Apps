@@ -4,6 +4,8 @@
     <Style TargetType="Button">
         <Setter Property="BackgroundColor" Value="Green" />
         <Setter Property="TextColor" Value="White" />
+        <Setter Property="WidthRequest" Value="200" />
+        <Setter Property="Margin" Value="0,0,0,10" />
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="FontAttributes" Value="Bold" />
     </Style>
