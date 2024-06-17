@@ -1,49 +1,57 @@
-﻿using Todo.TorneSeUmProgramador.Core.Modelos;
+﻿using Microsoft.EntityFrameworkCore;
+using Todo.TorneSeUmProgramador.Core.Modelos;
 using Todo.TorneSeUmProgramador.Data.Contexto;
 
 namespace Todo.TorneSeUmProgramador.Data.DAO;
 
 public class TarefasDAO
 {
-    private static readonly TodoAppContextoFake _contexto;
+    private static readonly TodoAppContexto _contexto;
 
     static TarefasDAO()
     {
-        _contexto = new TodoAppContextoFake();
+        _contexto = new TodoAppContexto();
     }
 
-    public void Adicionar(Tarefa tarefa)
+    public async Task Adicionar(Tarefa tarefa)
     {
-        _contexto.Tarefas.Add(tarefa);
+        await _contexto.Tarefas.AddAsync(tarefa);
+        await _contexto.SaveChangesAsync();
     }
 
-    public void Adicionar(List<Tarefa> tarefas)
+    public async Task Adicionar(List<Tarefa> tarefas)
     {
-        _contexto.Tarefas.AddRange(tarefas);
+        await _contexto.Tarefas.AddRangeAsync(tarefas);
+        await _contexto.SaveChangesAsync();
     }
 
-    public void Atualizar(Tarefa tarefa)
+    public async Task Atualizar(Tarefa tarefa)
     {
-        var tarefaExistente = _contexto.Tarefas.FirstOrDefault(x => x.Nome.Equals(tarefa.Nome, StringComparison.InvariantCultureIgnoreCase));
-
-        if (tarefaExistente != null)
-        {
-            tarefaExistente.Descricao = tarefa.Descricao;
-            tarefaExistente.DataConclusao = tarefa.DataConclusao;
-            tarefaExistente.Concluida = tarefa.Concluida;
-        }
+        _contexto.Update(tarefa);
+        await _contexto.SaveChangesAsync();
     }
 
-    public void Remover(Tarefa tarefa)
+    public async Task Remover(Tarefa tarefa)
     {
-        var tarefaExistente = _contexto.Tarefas.FirstOrDefault(x => x.Nome.Equals(tarefa.Nome, StringComparison.InvariantCultureIgnoreCase));
-
-        if (tarefaExistente != null)
-        {
-            _contexto.Tarefas.Remove(tarefaExistente);
-        }
+        _contexto.Remove(tarefa);
+        await _contexto.SaveChangesAsync();
     }
 
-    public List<Tarefa> Listar()
-        => _contexto.Tarefas;
+    public async Task<List<Tarefa>> Listar()
+        => await _contexto.Tarefas.ToListAsync();
+
+    public void CriarBancodeDados()
+    {
+        _contexto.Database.EnsureCreated();
+    }
+
+    //public void DeletarBancodeDados()
+    //{
+    //    _contexto.Database.EnsureDeleted();
+    //}
+
+    public void AplicarAtualizacoesBancoDeDados()
+    {
+        _contexto.Database.Migrate();
+    }
 }

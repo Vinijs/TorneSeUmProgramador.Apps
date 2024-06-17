@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Todo.TorneSeUmProgramador.Data.DAO;
 
 namespace TodoApp.TorneSeUmProgramador.App
 {
@@ -23,6 +24,10 @@ namespace TodoApp.TorneSeUmProgramador.App
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            var dao = new TarefasDAO();
+
+            dao.CriarBancodeDados();
+
 
             return builder.Build();
         }

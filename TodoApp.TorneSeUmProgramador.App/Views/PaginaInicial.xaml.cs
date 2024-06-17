@@ -3,40 +3,28 @@ using System.Collections.ObjectModel;
 using Todo.TorneSeUmProgramador.Core.Modelos;
 using Todo.TorneSeUmProgramador.Data.DAO;
 using TodoApp.TorneSeUmProgramador.App.Messages;
-using TodoApp.TorneSeUmProgramador.App.Storages;
 
 namespace TodoApp.TorneSeUmProgramador.App.Views;
 
 public partial class PaginaInicial : ContentPage
 {
 	private bool _isDarkTheme = true;
-	private readonly TarefasDAO _tarefasDAO;
+	private bool _tarefasCarregadas = false;
+	private TarefasDAO _tarefasDAO;
 	private ObservableCollection<Tarefa> _tarefas;
 
 	public PaginaInicial()
 	{
 		InitializeComponent();
+        _tarefasDAO = new TarefasDAO();
 
-		var tarefasSalvas = TarefaPreferencesStorage.Listar();
-
-		_tarefasDAO = new TarefasDAO();
-
-		if (tarefasSalvas.Any())
-		{
-			_tarefasDAO.Adicionar(tarefasSalvas);
-		}
-
-		_tarefas = new ObservableCollection<Tarefa>(_tarefasDAO.Listar());
-
-		TarefasCollectionView.ItemsSource = _tarefas;
-
-		WeakReferenceMessenger.Default.Register<NovaTarefaMessage>(this, (x, y) =>
+        WeakReferenceMessenger.Default.Register<NovaTarefaMessage>(this, async (x, y) =>
 		{
 			_tarefas.Add(y.Value);
-			TarefaPreferencesStorage.Salvar(y.Value);
+			await _tarefasDAO.Adicionar(y.Value);
 		});
 
-		WeakReferenceMessenger.Default.Register<EditarTarefaMessage>(this, (x,y) =>
+		WeakReferenceMessenger.Default.Register<EditarTarefaMessage>(this, async (x,y) =>
 		{
 			var tarefas = _tarefas.Where(x => x.Id != y.Value.Id).ToList();
 
@@ -49,9 +37,26 @@ public partial class PaginaInicial : ContentPage
 
             TarefasCollectionView.ItemsSource = _tarefas;
 
-			TarefaPreferencesStorage.Atualizar(y.Value);
+			await _tarefasDAO.Atualizar(y.Value);
 		});
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+		if (!_tarefasCarregadas)
+		{            
+			var tarefasSalvas = await _tarefasDAO.Listar();
+
+			_tarefas = new ObservableCollection<Tarefa>(tarefasSalvas);
+
+			TarefasCollectionView.ItemsSource = _tarefas; 
+			
+			_tarefasCarregadas = true;
+		}
+
+    }
 
     private void pesquisaEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -122,18 +127,12 @@ public partial class PaginaInicial : ContentPage
 		await Navigation.PushModalAsync(modal);
     }
 
-    private void DeletarTarefaSwipeInvoke(object sender, EventArgs e)
+    private async void DeletarTarefaSwipeInvoke(object sender, EventArgs e)
     {
 		var swipeItem = (SwipeItem)sender;
 		var tarefa = (Tarefa)swipeItem.CommandParameter;
 		
 		_tarefas.Remove(tarefa);
-		TarefaPreferencesStorage.Excluir(tarefa);
+		await _tarefasDAO.Remover(tarefa);
     }
-
-    //  private void DeletarTarefaLeftSwiped(object sender, SwipedEventArgs e)
-    //  {
-    //var tarefa = (Tarefa)e.Parameter;
-    //_tarefas.Remove(tarefa);
-    //  }
 }

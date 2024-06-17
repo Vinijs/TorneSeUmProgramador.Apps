@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0005: O uso da diretiva é desnecessário.
+dotnet_diagnostic.IDE0005.severity = none
