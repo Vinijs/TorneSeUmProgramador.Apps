@@ -42,7 +42,7 @@ public class TarefasDAO
 
     public void CriarBancodeDados()
     {
-        _contexto.Database.EnsureDeleted();
+        //_contexto.Database.EnsureDeleted();
         _contexto.Database.EnsureCreated();
     }
 
