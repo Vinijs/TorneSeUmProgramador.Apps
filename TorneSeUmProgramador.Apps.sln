@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App1", "App1", "{0323B851-E54D-4C56-B67D-2C28D2B5BE88}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App2", "App2", "{98161402-5B77-4509-8BB5-878769F7F885}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8F3A7A4-01C0-4D82-B72F-D6916D99990D} = {0323B851-E54D-4C56-B67D-2C28D2B5BE88}
+		{378FAB22-FEB8-4A05-8ADA-CADD684FBB65} = {0323B851-E54D-4C56-B67D-2C28D2B5BE88}
+		{08DB8117-F847-446B-ADFD-F4D7809E30BC} = {0323B851-E54D-4C56-B67D-2C28D2B5BE88}
+		{C13C01D3-1BFB-4516-BF8E-C31C7E72B31B} = {0323B851-E54D-4C56-B67D-2C28D2B5BE88}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B36D28D6-5D36-4BB6-B4B7-A9681460F11A}
