@@ -6,6 +6,8 @@
         {
             InitializeComponent();
 
+            //App.Current.UserAppTheme = AppTheme.Dark;
+
             MainPage = new AppShell();
         }
     }
