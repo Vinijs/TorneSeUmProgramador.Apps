@@ -48,9 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\apple_icon.svg" />
 	  <None Remove="Resources\Images\bag_alt.svg" />
+	  <None Remove="Resources\Images\eyeclosed.svg" />
+	  <None Remove="Resources\Images\eyeopen.svg" />
+	  <None Remove="Resources\Images\facebook_icon.svg" />
 	  <None Remove="Resources\Images\fire_burn.svg" />
+	  <None Remove="Resources\Images\google_icon.svg" />
 	  <None Remove="Resources\Images\heart.svg" />
+	  <None Remove="Resources\Images\logo.svg" />
 	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\ui_user.svg" />
 	</ItemGroup>

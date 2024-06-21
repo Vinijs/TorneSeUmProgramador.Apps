@@ -6,41 +6,35 @@
     xmlns:views="clr-namespace:Viagens.TorneSeUmProgramador.App.Views"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False">
-    
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:Login}"
+        Route="login" />
+
     <TabBar>
         <ShellContent
-            Title="Home"
             ContentTemplate="{DataTemplate views:PaginaInicial}"
             Route="home"
             Icon="search.png"/>
         <ShellContent
-            Title="Ofertas"
             ContentTemplate="{DataTemplate views:Ofertas}"
             Route="ofertas"
             Icon="fire_burn.png"/>
 
         <ShellContent
-            Title="Minhas Viagens"
             ContentTemplate="{DataTemplate views:MinhasViagens}"
             Route="minhas-viagens"
             Icon="bag_alt.png"/>
 
         <ShellContent
-            Title="Meus Locais Favoritos"
             ContentTemplate="{DataTemplate views:MeusFavoritos}"
             Route="meus-favoritos"
             Icon="heart.png"/>
 
         <ShellContent
-            Title="Perfil"
             ContentTemplate="{DataTemplate views:Perfil}"
             Route="perfil"
-            Icon="ui_user.png"/> 
+            Icon="ui_user.png"/>
     </TabBar>
-    
-    <ShellContent
-            Title="Login"
-            ContentTemplate="{DataTemplate views:Login}"
-            Route="login" />
-
 </Shell>
