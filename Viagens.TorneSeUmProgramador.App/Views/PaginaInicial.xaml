@@ -2,12 +2,85 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.PaginaInicial">
-    <VerticalStackLayout>
-        <Label 
-            Text="Está é a página inicial"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <FlexLayout Direction="Column" JustifyContent="SpaceBetween">
+        <VerticalStackLayout Padding="20" Spacing="20">
+            
+            <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto" Padding="10">
+                <Label Text="Olá Vinicius," FontSize="20" />
+                <Label
+                    Text="Encontre Ofertas"
+                    FontAttributes="Bold"
+                    FontSize="24" 
+                    Grid.Row="1" />
+                <Image 
+                    Source="avatar_user.png"
+                    WidthRequest="50"
+                    Grid.ColumnSpan="2"                    
+                    Grid.RowSpan="2"
+                    HorizontalOptions="EndAndExpand"/>
+            </Grid>
 
-        <Button Clicked="OnClickNavegarParaPassagensAereas" Text="Ir para página de voos" />
-    </VerticalStackLayout>
+            <Border StrokeShape="RoundRectangle 31" BackgroundColor="{StaticResource Gray200}" Margin="0,20">
+                <SearchBar Placeholder="Onde você deseja conhecer?" />
+            </Border>
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Reserve" FontAttributes="Bold" FontSize="20" />
+                <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
+                    <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#7680F4">
+                        <Image Source="aviao.png" WidthRequest="55" />
+                    </Border>
+                    <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#FE713F">
+                        <Image Source="onibus.png" WidthRequest="55" />
+                    </Border>
+                    <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#FBC066">
+                        <Image Source="hotel.png" WidthRequest="55" />
+                    </Border>
+                    <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#00AAFE">
+                        <Image Source="location.png" WidthRequest="55" />
+                    </Border>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+        <VerticalStackLayout Spacing="20" Padding="20">
+            <StackLayout Orientation="Horizontal">
+                <Label 
+                    Text="Mais Buscados"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    VerticalOptions="Start"/>
+                <Label
+                    HorizontalOptions="EndAndExpand"
+                    Text="Ver todos"
+                    VerticalOptions="Center"/>
+            </StackLayout>
+            <CarouselView x:Name="CarouselViewPrincipal" PeekAreaInsets="100,0" Loop="False">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+                            HeightRequest="259"
+                            WidthRequest="189"
+                            BackgroundColor="{StaticResource Secondary}"
+                            StrokeShape="RoundRectangle 20">
+                            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                <Image 
+                                    Source="{Binding Imagem}"
+                                    Aspect="AspectFill"
+                                    HeightRequest="185"
+                                    WidthRequest="155"
+                                    BackgroundColor="Black"/>
+                                <VerticalStackLayout Margin="0,5,0,0">
+                                    <Label
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Text="{Binding Titulo}" />
+                                    <Label Text="{Binding Descricao}" FontSize="12" />
+                                </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </VerticalStackLayout>
+    </FlexLayout>
 </ContentPage>

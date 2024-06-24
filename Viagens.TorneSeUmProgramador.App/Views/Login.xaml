@@ -7,65 +7,68 @@
     <FlexLayout VerticalOptions="Center" Direction="Column" JustifyContent="SpaceAround">
         <Image
             Source="logo.png" />
-        <VerticalStackLayout Spacing="10">
-            <Border 
-                StrokeShape="RoundRectangle 31"
-                Padding="5"
-                BackgroundColor="White">
-            <Entry
-                Placeholder="Usuário"
-                PlaceholderColor="{StaticResource Gray400}"
-                Margin="10,0"/>
+        <VerticalStackLayout>
+            
+            <VerticalStackLayout Spacing="10">
+                <Border 
+                    StrokeShape="RoundRectangle 31"
+                    Padding="5"
+                    BackgroundColor="White">
+                <Entry
+                    Placeholder="Usuário"
+                    PlaceholderColor="{StaticResource Gray400}"
+                    Margin="10,0"/>
                 
-            </Border>
-            <Border 
-                StrokeShape="RoundRectangle 31"
-                Padding="5"
-                BackgroundColor="White">
-                <StackLayout Orientation="Horizontal">
-                    <Entry
-                        x:Name="SenhaEntry"
-                        Placeholder="Senha"
-                        HorizontalOptions="FillAndExpand"
-                        PlaceholderColor="{StaticResource Gray400}"
-                        IsPassword="True"
-                        Margin="10,0, 0,0"/>
-                    <Image
-                         x:Name="SenhaImage"
-                         Margin="10,0"
-                         HorizontalOptions="End"
-                         WidthRequest="25"
-                         HeightRequest="20"
-                         Source="eyeclosed.png">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="SenhaImage_Tapped" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                </StackLayout>
-            </Border>
-            <Button
-                Text="Acessar"
-                FontAttributes="Bold"
-                FontSize="20"
-                BackgroundColor="#007ECA"
-                HorizontalOptions="Center"
-                WidthRequest="160"
-                Margin="0,20,0,0"
-                CornerRadius="31"
-                TextColor="White" />
-        </VerticalStackLayout>
-        <VerticalStackLayout HorizontalOptions="Center" Spacing="20" Margin="0,10,0,0">
-            <Label
-                Text="Logar com"
-                FontAttributes="Bold"
-                HorizontalTextAlignment="Center"
-                FontSize="20"
-                TextColor="White"/>
-            <HorizontalStackLayout Spacing="20">
-                <Image Source="apple_icon.png" IsVisible="{OnPlatform iOS=true, Default=false}" />
-                <Image Source="facebook_icon.png" />
-                <Image Source="google_icon.png" />
-            </HorizontalStackLayout>
+                </Border>
+                <Border 
+                    StrokeShape="RoundRectangle 31"
+                    Padding="5"
+                    BackgroundColor="White">
+                    <StackLayout Orientation="Horizontal">
+                        <Entry
+                            x:Name="SenhaEntry"
+                            Placeholder="Senha"
+                            HorizontalOptions="FillAndExpand"
+                            PlaceholderColor="{StaticResource Gray400}"
+                            IsPassword="True"
+                            Margin="10,0, 0,0"/>
+                        <Image
+                             x:Name="SenhaImage"
+                             Margin="10,0"
+                             HorizontalOptions="End"
+                             WidthRequest="25"
+                             HeightRequest="20"
+                             Source="eyeclosed.png">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SenhaImage_Tapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </Border>
+                <Button
+                    Text="Acessar"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    BackgroundColor="#007ECA"
+                    HorizontalOptions="Center"
+                    WidthRequest="160"
+                    Margin="0,20,0,0"
+                    CornerRadius="31"
+                    TextColor="White" />
+            </VerticalStackLayout>
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="20" Margin="0,10,0,0">
+                <Label
+                    Text="Logar com"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    FontSize="20"
+                    TextColor="White"/>
+                <HorizontalStackLayout Spacing="20">
+                    <Image Source="apple_icon.png" IsVisible="{OnPlatform iOS=true, Default=false}" />
+                    <Image Source="facebook_icon.png" />
+                    <Image Source="google_icon.png" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </FlexLayout>
 </ContentPage>

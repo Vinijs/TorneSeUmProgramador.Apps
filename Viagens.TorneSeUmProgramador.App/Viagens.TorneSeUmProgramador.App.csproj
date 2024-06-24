@@ -49,6 +49,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\apple_icon.svg" />
+	  <None Remove="Resources\Images\avatar_user.svg" />
+	  <None Remove="Resources\Images\aviao.svg" />
 	  <None Remove="Resources\Images\bag_alt.svg" />
 	  <None Remove="Resources\Images\eyeclosed.svg" />
 	  <None Remove="Resources\Images\eyeopen.svg" />
@@ -56,7 +58,10 @@
 	  <None Remove="Resources\Images\fire_burn.svg" />
 	  <None Remove="Resources\Images\google_icon.svg" />
 	  <None Remove="Resources\Images\heart.svg" />
+	  <None Remove="Resources\Images\hotel.svg" />
+	  <None Remove="Resources\Images\location.svg" />
 	  <None Remove="Resources\Images\logo.svg" />
+	  <None Remove="Resources\Images\onibus.svg" />
 	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\ui_user.svg" />
 	</ItemGroup>

@@ -7,10 +7,6 @@
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False">
 
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate views:Login}"
-        Route="login" />
 
     <TabBar>
         <ShellContent
@@ -37,4 +33,9 @@
             Route="perfil"
             Icon="ui_user.png"/>
     </TabBar>
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:Login}"
+        Route="login" />
+    
 </Shell>
