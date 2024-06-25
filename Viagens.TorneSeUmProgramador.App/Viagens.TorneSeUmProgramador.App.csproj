@@ -48,6 +48,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Resources\Styles\AppStyles.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\apple_icon.svg" />
 	  <None Remove="Resources\Images\avatar_user.svg" />
 	  <None Remove="Resources\Images\aviao.svg" />
@@ -71,6 +75,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\AppStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\BuscaPassagemAerea.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
