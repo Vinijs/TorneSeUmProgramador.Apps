@@ -41,4 +41,8 @@
     <Color x:Key="Blue200Accent">#72ACF1</Color>
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
 
+    <Color x:Key="PassagemAerea">#7680F4</Color>
+    <Color x:Key="PassagemTerrestre">#FE713F</Color>
+    <Color x:Key="Hospedagem">#FBC066</Color>
+    <Color x:Key="Completo">#00AAFE</Color>
 </ResourceDictionary>

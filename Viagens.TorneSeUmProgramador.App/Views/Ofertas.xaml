@@ -1,104 +1,199 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templateSelector="clr-namespace:Viagens.TorneSeUmProgramador.App.Utils.TemplateSelectors"
+             xmlns:converters="clr-namespace:Viagens.TorneSeUmProgramador.App.Utils.Converters"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.Ofertas">
-    <ScrollView>
-        
-        
-    <VerticalStackLayout Padding="20" Spacing="20">
-        <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto" Padding="10">
-            <Label Text="Olá Vinicius," FontSize="20" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TipoPacoteParaCorConverter x:Key="TipoPacoteParaCorConverter" />
+            <DataTemplate x:Key="ItemParTemplate">
+                <Border 
+            Margin="0,0,0,20"
+            BackgroundColor="{Binding TipoPacote, Converter={StaticResource TipoPacoteParaCorConverter}}"
+            StrokeShape="RoundRectangle 20">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border Margin="-5" StrokeShape="RoundRectangle 20 20 0 0">
+                            <Image
+                    Aspect="AspectFill"
+                    Source="{Binding Imagem}" />
+                        </Border>
+                        <Image
+                Source="chama_icon.png"
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                Margin="2"/>
+                        <Border
+                Margin="2"
+                HorizontalOptions="EndAndExpand"
+                BackgroundColor="{StaticResource Gray100}"
+                VerticalOptions="StartAndExpand"
+                StrokeShape="RoundRectangle 20">
+                            <StackLayout 
+                            Padding="4"
+                            Orientation="Vertical"
+                            HorizontalOptions="FillAndExpand">
+                                <Label
+                        FontAttributes="Bold"
+                        FontSize="8"
+                        Text="{Binding PrecoAnterior, StringFormat='{0:C}'}"
+                        TextDecorations="Strikethrough"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="Black" />
+                                <Label
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        Text="{Binding Preco, StringFormat='{0:C}'}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="Black" />
+                            </StackLayout>
+                        </Border>
+                        <StackLayout
+                    Grid.Row="1"
+                    Margin="0,10,0,0"
+                    Orientation="Vertical">
+                            <Label
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="{Binding Local}" />
+                            <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding Data}"
+                    TextColor="White"
+                    />
+                        </StackLayout>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ItemImParTemplate">
+                <Border 
+                    Margin="0,20,0,0"
+                    BackgroundColor="{Binding TipoPacote, Converter={StaticResource TipoPacoteParaCorConverter}}"
+                    StrokeShape="RoundRectangle 20">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border Margin="-5" StrokeShape="RoundRectangle 20 20 0 0">
+                            <Image
+                                Aspect="AspectFill"
+                                Source="{Binding Imagem}" />
+                        </Border>
+                        <Image
+                            Source="chama_icon.png"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Start"
+                            Margin="2"/>
+                        <Border
+                            Margin="2"
+                            HorizontalOptions="EndAndExpand"
+                            BackgroundColor="{StaticResource Gray100}"
+                            VerticalOptions="StartAndExpand"
+                            StrokeShape="RoundRectangle 20">
+                            <StackLayout 
+                                Padding="4"
+                                Orientation="Vertical"
+                                HorizontalOptions="FillAndExpand">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="8"
+                                    Text="{Binding PrecoAnterior, StringFormat='{0:C}'}"
+                                    TextDecorations="Strikethrough"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="Black" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    Text="{Binding Preco, StringFormat='{0:C}'}"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="Black" />
+                            </StackLayout>
+                        </Border>
+                        <StackLayout
+                            Grid.Row="1"
+                            Margin="0,10,0,0"
+                            Orientation="Vertical">
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{Binding Local}" />
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="{Binding Data}"
+                                TextColor="White"
+                                />
+                        </StackLayout>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <templateSelector:AlinhamentoCardTemplateSelector x:Key="AlinhamentoCardTemplateSelector" 
+                                                              ItemImparTemplate="{StaticResource ItemImParTemplate}"
+                                                              ItemParTemplate="{StaticResource ItemParTemplate}"/>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="20" RowDefinitions="*,5*" ColumnDefinitions="*">
+        <VerticalStackLayout Padding="10">
             <Label
-        Text="Encontre Ofertas"
-        FontAttributes="Bold"
-        FontSize="24" 
-        Grid.Row="1" />
-            <Image 
-        Source="avatar_user.png"
-        WidthRequest="50"
-        Grid.ColumnSpan="2"                    
-        Grid.RowSpan="2"
-        HorizontalOptions="EndAndExpand"/>
-        </Grid>
-
-        <VerticalStackLayout>
-            <Label 
-                Text="Melhores Ofertas"
-                Style="{StaticResource LabelTitle}"
-                FontSize="20"
-                Margin="0,0,0,20"/>
-            <Label Text="Ordenar Por:" Style="{StaticResource LabelSmall}" />
-            <FlexLayout Direction="Row" JustifyContent="SpaceBetween" Grid.Row="1">
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox />
-                    <Label Text="Preço" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox />
-                    <Label Text="Popularidade" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10">
-                    <CheckBox />
-                    <Label Text="Ativa" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-            </FlexLayout>
-
-            <Grid>
-                <CollectionView x:Name="OfertasCollection" SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border 
-                                Margin="5"
-                                Padding="0"
-                                BackgroundColor="#7680F4">
-                                <Grid Padding="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Image
-                                        Grid.Row="0"
-                                        Aspect="AspectFill"
-                                        Source="{Binding Imagem}" />
-                                    <StackLayout
-                                        Grid.Row="1"
-                                        BackgroundColor="Orange"
-                                        HorizontalOptions="FillAndExpand"
-                                        Orientation="Horizontal"
-                                        Spacing="0">
-
-                                        <Label
-                                            FontAttributes="Bold"
-                                            Text="{Binding Preço}"
-                                            TextColor="White" />
-                                        <Label
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="FillAndExpand"
-                                            Text="SALE"
-                                            TextColor="White" />
-                                    </StackLayout>
-                                    <StackLayout
-                                        Grid.Row="2"
-                                        Padding="5,10"
-                                        Orientation="Vertical"
-                                        Spacing="0">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Local}" />
-                                        <Label HorizontalOptions="Center" Text="{Binding Data}" />
-                                    </StackLayout>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
+                Text="Encontre Ofertas"
+                FontAttributes="Bold"
+                FontSize="24" 
+                />
+            <Border
+                StrokeShape="RoundRectangle 31"
+                Grid.Row="1"
+                BackgroundColor="{StaticResource Gray200}"
+                Margin="0,20">
+                <SearchBar Placeholder="Onde você deseja conhecer?" />
+            </Border>
         </VerticalStackLayout>
-    </VerticalStackLayout>
-    </ScrollView>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*" RowDefinitions="*,4*">
+            <VerticalStackLayout>
+                <Label 
+                    Text="Melhores Ofertas"
+                    Style="{StaticResource LabelTitle}"
+                    FontSize="20"
+                    Margin="0,10,0,20"/>
+                <Label Text="Ordenar Por:" Style="{StaticResource LabelSmall}" />
+                <FlexLayout Direction="Row" JustifyContent="SpaceBetween" Grid.Row="1">
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox />
+                        <Label Text="Preço" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox />
+                        <Label Text="Popularidade" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox />
+                        <Label Text="Ativa" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </FlexLayout>
+            </VerticalStackLayout>
+
+            <Image
+                Source="sale_icon.png"
+                Grid.Row="1"
+                HeightRequest="50"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="EndAndExpand"
+                ZIndex="1"/>
+            <CollectionView x:Name="OfertasCollection" SelectionMode="None" Grid.Row="1" Margin="-5,10" ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </Grid>
+    </Grid>
 </ContentPage>

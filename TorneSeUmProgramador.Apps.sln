@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App1", "App1", "{0323B851-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App2", "App2", "{98161402-5B77-4509-8BB5-878769F7F885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Viagens.TorneSeUmProgramador.App", "Viagens.TorneSeUmProgramador.App\Viagens.TorneSeUmProgramador.App.csproj", "{CA98676F-3EE3-47B6-999E-7278D80F733F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Viagens.TorneSeUmProgramador.App", "Viagens.TorneSeUmProgramador.App\Viagens.TorneSeUmProgramador.App.csproj", "{CA98676F-3EE3-47B6-999E-7278D80F733F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Viagens.TorneSeUmProgramador.Core", "Viagens.TorneSeUmProgramador.Core\Viagens.TorneSeUmProgramador.Core.csproj", "{C4689EC4-5BF9-48F4-8B8D-9622F91B06ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{CA98676F-3EE3-47B6-999E-7278D80F733F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA98676F-3EE3-47B6-999E-7278D80F733F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA98676F-3EE3-47B6-999E-7278D80F733F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C4689EC4-5BF9-48F4-8B8D-9622F91B06ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4689EC4-5BF9-48F4-8B8D-9622F91B06ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4689EC4-5BF9-48F4-8B8D-9622F91B06ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4689EC4-5BF9-48F4-8B8D-9622F91B06ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,16 +29,16 @@
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Reserve" Style="{StaticResource LabelTitle}" />
                     <FlexLayout Direction="Row" JustifyContent="SpaceBetween">
-                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#7680F4">
+                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="{StaticResource PassagemAerea}">
                             <Image Source="aviao.png" WidthRequest="55" />
                         </Border>
-                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#FE713F">
+                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="{StaticResource PassagemTerrestre}">
                             <Image Source="onibus.png" WidthRequest="55" />
                         </Border>
-                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#FBC066">
+                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="{StaticResource Hospedagem}">
                             <Image Source="hotel.png" WidthRequest="55" />
                         </Border>
-                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="#00AAFE">
+                        <Border Padding="10" StrokeShape="RoundRectangle 5" BackgroundColor="{StaticResource Completo}">
                             <Image Source="location.png" WidthRequest="55" />
                         </Border>
                     </FlexLayout>
