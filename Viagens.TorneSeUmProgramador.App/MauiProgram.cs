@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Viagens.TorneSeUmProgramador.App.Extensions;
 
 namespace Viagens.TorneSeUmProgramador.App
 {
@@ -19,6 +20,7 @@ namespace Viagens.TorneSeUmProgramador.App
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.ConfigurarDependencias();
             return builder.Build();
         }
     }

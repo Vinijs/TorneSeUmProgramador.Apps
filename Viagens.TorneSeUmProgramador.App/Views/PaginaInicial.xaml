@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Viagens.TorneSeUmProgramador.App.ViewModels"
+             xmlns:dtos="clr-namespace:Viagens.TorneSeUmProgramador.Core.Dtos;assembly=Viagens.TorneSeUmProgramador.Core"
+             x:DataType="vm:PaginaInicialViewModel"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.PaginaInicial">
     <ScrollView>
 
@@ -57,9 +60,12 @@
                         TextDecorations="Underline"
                         VerticalOptions="Center"/>
                 </StackLayout>
-                <CarouselView x:Name="CarouselViewPrincipal" PeekAreaInsets="100,0" Loop="False">
+                <CarouselView 
+                    PeekAreaInsets="100,0"
+                    Loop="False"
+                    ItemsSource="{Binding MaisBuscados}">
                     <CarouselView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="dtos:MaisBuscadosDto">
                             <Border 
                                 HeightRequest="259"
                                 WidthRequest="189"

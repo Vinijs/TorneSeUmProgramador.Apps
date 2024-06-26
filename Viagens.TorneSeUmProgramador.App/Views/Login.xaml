@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Viagens.TorneSeUmProgramador.App.ViewModels"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.Login"
-             BackgroundColor="#6067EC"
-             Padding="20">
+             BackgroundColor="#6067EC">
+    <ContentPage.BindingContext>
+    <vm:LoginViewModel />
+    </ContentPage.BindingContext>
     <FlexLayout VerticalOptions="Center" Direction="Column" JustifyContent="SpaceAround">
         <Image
             Source="logo.png" />
@@ -24,23 +27,21 @@
                     StrokeShape="RoundRectangle 31"
                     Padding="5"
                     BackgroundColor="White">
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal" x:Name="SenhaStackLayout">
                         <Entry
-                            x:Name="SenhaEntry"
                             Placeholder="Senha"
                             HorizontalOptions="FillAndExpand"
                             PlaceholderColor="{StaticResource Gray400}"
                             IsPassword="True"
                             Margin="10,0, 0,0"/>
                         <Image
-                             x:Name="SenhaImage"
                              Margin="10,0"
                              HorizontalOptions="End"
                              WidthRequest="25"
                              HeightRequest="20"
                              Source="eyeclosed.png">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="SenhaImage_Tapped" />
+                                <TapGestureRecognizer Command="{Binding TapSenhaImageCommand}" CommandParameter="{x:Reference SenhaStackLayout}" />
                             </Image.GestureRecognizers>
                         </Image>
                     </StackLayout>
