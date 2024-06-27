@@ -78,7 +78,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Viagens.TorneSeUmProgramador.Business\Viagens.TorneSeUmProgramador.Business.csproj" />
 	  <ProjectReference Include="..\Viagens.TorneSeUmProgramador.Core\Viagens.TorneSeUmProgramador.Core.csproj" />
+	  <ProjectReference Include="..\Viagens.TorneSeUmProgramador.Data\Viagens.TorneSeUmProgramador.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
