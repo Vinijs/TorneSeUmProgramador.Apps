@@ -9,4 +9,15 @@ public partial class PaginaInicial : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+
+    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+		var vm = BindingContext as PaginaInicialViewModel;
+
+		if (vm != null) 
+		{
+			await vm.ObterMaisBuscados();
+		}
+        base.OnNavigatedTo(args);
+    }
 }

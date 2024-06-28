@@ -15,7 +15,20 @@ public sealed partial class PaginaInicialViewModel : ObservableObject
     public PaginaInicialViewModel(IBuscaService buscaService)
     {
         _buscaService = buscaService;
-        var maisBuscados = _buscaService.ObterViagensMaisBuscadas().Result as ResultadoSucesso<IEnumerable<MaisBuscadosDto>>;
-        MaisBuscados = new ObservableCollection<MaisBuscadosDto>(maisBuscados.Dados);
+        //var maisBuscados = _buscaService.ObterViagensMaisBuscadas().Result as ResultadoSucesso<IEnumerable<MaisBuscadosDto>>;
+        MaisBuscados = new ObservableCollection<MaisBuscadosDto>();
+    }
+
+    public async Task ObterMaisBuscados()
+    {
+        var resultado = await _buscaService.ObterViagensMaisBuscadas();
+        if (resultado is ResultadoSucesso<IEnumerable<MaisBuscadosDto>> maisBuscados)
+        {
+            MaisBuscados = new ObservableCollection<MaisBuscadosDto>(maisBuscados.Dados);
+            return;
+        }
+
+        var falha = resultado as ResultadoFalha<IEnumerable<MaisBuscadosDto>>;
+        await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
     }
 }
