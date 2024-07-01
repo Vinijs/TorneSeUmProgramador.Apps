@@ -32,7 +32,12 @@ public static class InjecaoDependenciaExtensions
 
     private static IServiceCollection ConfigurarServicos(this IServiceCollection services)
     {
+        //serviços do app
         services.AddTransient<IBuscaService, BuscaService>();
+
+        //serviços nativos
+        services.AddSingleton<IConnectivity>(Connectivity.Current);
+
         return services;
     }
 
@@ -50,7 +55,7 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://4ae0-2804-10f8-4311-7100-f110-814c-e9fc-4922.ngrok-free.app/")
+                .Add("viagens-api-client", "http://10.0.2.2:5234/")
         );
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
         return services;
