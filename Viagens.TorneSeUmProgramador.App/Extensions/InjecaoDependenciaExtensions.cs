@@ -50,7 +50,7 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://localhost:7280")
+                .Add("viagens-api-client", "https://4ae0-2804-10f8-4311-7100-f110-814c-e9fc-4922.ngrok-free.app/")
         );
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
         return services;

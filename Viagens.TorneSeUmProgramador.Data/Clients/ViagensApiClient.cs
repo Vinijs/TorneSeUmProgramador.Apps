@@ -7,14 +7,14 @@ namespace Viagens.TorneSeUmProgramador.Data.Clients;
 
 public sealed class ViagensApiClient : IViagensApiClient
 {
-    private const string _mais_buscados = "viagens-api-client";
+    private const string _mais_buscados = "viagens/mais-buscadas";
 
     public readonly IFlurlClient _flurlClient;
     public readonly IAppLogger<ViagensApiClient> _logger;
 
     public ViagensApiClient(IFlurlClientCache flurlClientCache, IAppLogger<ViagensApiClient> logger)
     {
-        _flurlClient = flurlClientCache.Get(_mais_buscados);
+        _flurlClient = flurlClientCache.Get("viagens-api-client");
         _logger = logger;
     }
 
@@ -22,7 +22,7 @@ public sealed class ViagensApiClient : IViagensApiClient
     {
         try
         {
-            return await _flurlClient.Request("viagens/mais-buscadas")
+            return await _flurlClient.Request(_mais_buscados)
                 .GetJsonAsync<List<MaisBuscadosDto>>();
         }
         catch (Exception ex)
