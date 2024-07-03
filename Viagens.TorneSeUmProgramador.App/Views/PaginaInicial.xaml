@@ -60,6 +60,12 @@
                         TextDecorations="Underline"
                         VerticalOptions="Center"/>
                 </StackLayout>
+                <Label FontSize="12" 
+                       Text="Não foi possível recuperar a informação. Sem acesso a internet."
+                       TextColor="{StaticResource PassagemTerrestre}"
+                       IsVisible="{Binding ConexaoInterrompida}"
+                       Margin="0"
+                       Padding="0"/>
                 <CarouselView 
                     PeekAreaInsets="100,0"
                     Loop="False"
