@@ -1,5 +1,6 @@
 ﻿using Flurl.Http.Configuration;
 using Microsoft.Extensions.Logging;
+using Viagens.TorneSeUmProgramador.App.AppServices;
 using Viagens.TorneSeUmProgramador.App.ViewModels;
 using Viagens.TorneSeUmProgramador.App.Views;
 using Viagens.TorneSeUmProgramador.Business.Services;
@@ -34,6 +35,7 @@ public static class InjecaoDependenciaExtensions
     {
         //serviços do app
         services.AddTransient<IBuscaService, BuscaService>();
+        services.AddSingleton<ILocalizacaoService, LocalizacaoService>();
 
         //serviços nativos
         services.AddSingleton<IConnectivity>(Connectivity.Current);
@@ -56,7 +58,7 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://fce5-2804-10f8-4311-7100-c84b-d76a-a99c-ad38.ngrok-free.app/")
+                .Add("viagens-api-client", "https://5bed-2804-10f8-4311-7100-c34-8cc5-6ed9-381b.ngrok-free.app/")
         );
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
         return services;

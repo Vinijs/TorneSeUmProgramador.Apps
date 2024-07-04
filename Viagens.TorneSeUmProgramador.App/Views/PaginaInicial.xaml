@@ -83,11 +83,15 @@
                                         Aspect="AspectFill"
                                         BackgroundColor="Black"/>
                                     <VerticalStackLayout Margin="0,5,0,0">
-                                        <Label
-                                        FontAttributes="Bold"
-                                        FontSize="14"
-                                        Text="{Binding Titulo}" />
-                                        <Label Text="{Binding Descricao}" FontSize="12" />
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Titulo}" FontAttributes="Bold" FontSize="14" />
+                                                    <Span Text=" - " />
+                                                    <Span Text="{Binding Distancia, StringFormat='Distância {0}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
                                     </VerticalStackLayout>
                                 </VerticalStackLayout>
                             </Border>

@@ -11,12 +11,15 @@ public class BuscaService : IBuscaService
 {
     private readonly IAppLogger<BuscaService> _logger;
     private readonly IViagensApiClient _viagensApiClient;
+    private readonly ILocalizacaoService _localizacaoService;
 
-    public BuscaService(IAppLogger<BuscaService> logger, 
-                        IViagensApiClient viagensApiClient)
+    public BuscaService(IAppLogger<BuscaService> logger,
+                        IViagensApiClient viagensApiClient,
+                        ILocalizacaoService localizacaoService)
     {
         _logger = logger;
         _viagensApiClient = viagensApiClient;
+        _localizacaoService = localizacaoService;
     }
 
     public async Task<IResultado<IEnumerable<MaisBuscadosDto>>> ObterViagensMaisBuscadas()
@@ -27,7 +30,16 @@ public class BuscaService : IBuscaService
             _logger.Informacao("Buscando viagens mais buscadas");
 
             var maisBuscados = await _viagensApiClient.ObterMaisBuscados();
- 
+
+            foreach (var viagem in maisBuscados)
+            {
+                _ = double.TryParse(viagem.Latitude, out double latitude);
+                _ = double.TryParse(viagem.Longitude, out double longitude);
+                var dadosDestino = (latitude,  longitude);
+                var distancia = await _localizacaoService.CalcularDistancia(dadosDestino);
+                viagem.Distancia = $"{distancia} km";
+            }
+
             return Resultado.Sucesso<IEnumerable<MaisBuscadosDto>>(maisBuscados);
         }
 		catch (Exception ex)
