@@ -8,6 +8,7 @@ namespace Viagens.TorneSeUmProgramador.Data.Clients;
 public sealed class ViagensApiClient : IViagensApiClient
 {
     private const string _mais_buscados = "viagens/mais-buscadas";
+    private const string _ofertas = "viagens/ofertas";
 
     public readonly IFlurlClient _flurlClient;
     public readonly IAppLogger<ViagensApiClient> _logger;
@@ -28,6 +29,20 @@ public sealed class ViagensApiClient : IViagensApiClient
         catch (Exception ex)
         {
             _logger.Erro(ex, "Erro ao buscar viagens mais buscadas");
+            throw;
+        }
+    }
+
+    public async Task<List<OfertaDto>> ObterOfertas()
+    {
+        try
+        {
+            return await _flurlClient.Request(_ofertas)
+                .GetJsonAsync<List<OfertaDto>>();
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar ofertas");
             throw;
         }
     }

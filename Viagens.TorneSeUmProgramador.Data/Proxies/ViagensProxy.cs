@@ -47,4 +47,30 @@ public class ViagensProxy : IViagensProxy
             throw;
         }
     }
+
+    public async Task<List<OfertaDto>> ObterOfertas()
+    {
+        try
+        {
+            if (_appCache.ContainsKey(OFERTAS_KEY))
+            {
+                var cacheData = _appCache.Get<List<OfertaDto>>(OFERTAS_KEY);
+
+                if (cacheData.DataExpiracao < DateTime.Now)
+                    return cacheData.Dados;
+            }
+
+            var ofertas = await _viagensApiClient.ObterOfertas();
+
+            _appCache.AddOrUpdate(OFERTAS_KEY, new CacheObject<List<OfertaDto>>(ofertas),
+                TimeSpan.FromMinutes(5));
+
+            return ofertas;
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar ofertas");
+            throw;
+        }
+    }
 }

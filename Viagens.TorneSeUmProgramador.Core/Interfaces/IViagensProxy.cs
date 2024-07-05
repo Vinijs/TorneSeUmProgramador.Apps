@@ -5,4 +5,5 @@ namespace Viagens.TorneSeUmProgramador.Core.Interfaces;
 public interface IViagensProxy
 {
     Task<List<MaisBuscadosDto>> ObterMaisBuscados();
+    Task<List<OfertaDto>> ObterOfertas();
 }

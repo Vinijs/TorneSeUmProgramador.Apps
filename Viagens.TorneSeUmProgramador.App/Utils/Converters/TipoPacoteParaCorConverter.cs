@@ -7,7 +7,9 @@ public sealed class TipoPacoteParaCorConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if(value is TipoPacote tipo)
+        var tipo = Enum.Parse(typeof(TipoPacote), value.ToString());
+        
+        if(tipo is not null)
         {
             Application.Current.Resources.TryGetValue(tipo.ToString() , out var color);
 

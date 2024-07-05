@@ -4,8 +4,11 @@
              x:Class="Viagens.TorneSeUmProgramador.App.Views.Perfil">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Tirar foto perfil"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button 
+            Clicked="Button_Clicked"
+            Text="Tirar foto" />
     </VerticalStackLayout>
 </ContentPage>
