@@ -6,7 +6,9 @@
              xmlns:vm="clr-namespace:Viagens.TorneSeUmProgramador.App.ViewModels"
              xmlns:dtos="clr-namespace:Viagens.TorneSeUmProgramador.Core.Dtos;assembly=Viagens.TorneSeUmProgramador.Core"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.Ofertas"
-             x:DataType="vm:OfertasViewModel">
+             xmlns:components="clr-namespace:Viagens.TorneSeUmProgramador.App.Views.Components"
+             x:DataType="vm:OfertasViewModel"
+             >
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TipoPacoteParaCorConverter x:Key="TipoPacoteParaCorConverter" />
@@ -146,12 +148,11 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid Padding="20" RowDefinitions="*,5*" ColumnDefinitions="*">
-        <VerticalStackLayout Padding="10">
-            <Label
-                Text="Encontre Ofertas"
-                FontAttributes="Bold"
-                FontSize="24" 
-                />
+        <VerticalStackLayout>
+            <components:AvatarUsuario NomeUsuario="Pedro" 
+                          FotoUsuario="avatar_user.png"
+                          MensagemTela="Encontre Promoções"
+                          TelaComponente="Ofertas"/>
             <Border
                 StrokeShape="RoundRectangle 31"
                 Grid.Row="1"
@@ -167,7 +168,7 @@
                     Text="Melhores Ofertas"
                     Style="{StaticResource LabelTitle}"
                     FontSize="20"
-                    Margin="0,10,0,20"/>
+                    Margin="0,35,0,20"/>
                 <Label Text="Ordenar Por:" Style="{StaticResource LabelSmall}" />
                 <FlexLayout Direction="Row" JustifyContent="SpaceBetween" Grid.Row="1">
                     <HorizontalStackLayout Spacing="10">

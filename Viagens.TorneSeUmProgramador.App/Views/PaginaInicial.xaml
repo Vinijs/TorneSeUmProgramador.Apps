@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Viagens.TorneSeUmProgramador.App.ViewModels"
              xmlns:dtos="clr-namespace:Viagens.TorneSeUmProgramador.Core.Dtos;assembly=Viagens.TorneSeUmProgramador.Core"
+             xmlns:components="clr-namespace:Viagens.TorneSeUmProgramador.App.Views.Components"
              x:DataType="vm:PaginaInicialViewModel"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.PaginaInicial">
     <ScrollView>
@@ -10,20 +11,10 @@
         <FlexLayout Direction="Column" JustifyContent="SpaceBetween">
             <VerticalStackLayout Padding="20" Spacing="20">
 
-                <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto" Padding="10">
-                    <Label Text="Olá Vinicius," FontSize="20" />
-                    <Label
-                        Text="Encontre Ofertas"
-                        FontAttributes="Bold"
-                        FontSize="24" 
-                        Grid.Row="1" />
-                    <Image 
-                        Source="avatar_user.png"
-                        WidthRequest="50"
-                        Grid.ColumnSpan="2"                    
-                        Grid.RowSpan="2"
-                        HorizontalOptions="EndAndExpand"/>
-                </Grid>
+                <components:AvatarUsuario NomeUsuario="Pedro" 
+                                          FotoUsuario="avatar_user.png"
+                                          MensagemTela="Encontre Ofertas"
+                                          TelaComponente="Inicial"/>
 
                 <Border StrokeShape="RoundRectangle 31" BackgroundColor="{StaticResource Gray200}" Margin="0,20">
                     <SearchBar Placeholder="Onde você deseja conhecer?" />
