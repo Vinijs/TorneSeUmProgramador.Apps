@@ -13,7 +13,9 @@ public partial class PaginaInicial : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         if (BindingContext is PaginaInicialViewModel vm)
+        {
             await vm.ObterMaisBuscados();
+        }
 
         base.OnNavigatedTo(args);
     }

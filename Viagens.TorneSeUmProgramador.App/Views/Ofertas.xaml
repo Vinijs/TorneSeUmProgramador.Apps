@@ -149,10 +149,8 @@
     </ContentPage.Resources>
     <Grid Padding="20" RowDefinitions="*,5*" ColumnDefinitions="*">
         <VerticalStackLayout>
-            <components:AvatarUsuario NomeUsuario="Pedro" 
-                          FotoUsuario="avatar_user.png"
-                          MensagemTela="Encontre Promoções"
-                          TelaComponente="Ofertas"/>
+            <components:AvatarUsuario MensagemTela="Encontre Promoções" TelaComponente="Ofertas"/>
+            
             <Border
                 StrokeShape="RoundRectangle 31"
                 Grid.Row="1"

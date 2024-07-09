@@ -4,9 +4,6 @@
              xmlns:components="clr-namespace:Viagens.TorneSeUmProgramador.App.Views.Components"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.Perfil">
     <VerticalStackLayout Padding="20">
-        <components:AvatarUsuario NomeUsuario="Pedro" 
-              FotoUsuario="avatar_user.png"
-              MensagemTela="Atualize seu perfil"
-              TelaComponente="Perfil"/>
+        <components:AvatarUsuario MensagemTela="Atualize seu perfil" TelaComponente="Perfil"/>
     </VerticalStackLayout>
 </ContentPage>

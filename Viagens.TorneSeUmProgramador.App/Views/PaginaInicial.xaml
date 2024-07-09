@@ -11,10 +11,7 @@
         <FlexLayout Direction="Column" JustifyContent="SpaceBetween">
             <VerticalStackLayout Padding="20" Spacing="20">
 
-                <components:AvatarUsuario NomeUsuario="Pedro" 
-                                          FotoUsuario="avatar_user.png"
-                                          MensagemTela="Encontre Ofertas"
-                                          TelaComponente="Inicial"/>
+                <components:AvatarUsuario MensagemTela="Encontre Ofertas" TelaComponente="Inicial"/>
 
                 <Border StrokeShape="RoundRectangle 31" BackgroundColor="{StaticResource Gray200}" Margin="0,20">
                     <SearchBar Placeholder="Onde você deseja conhecer?" />

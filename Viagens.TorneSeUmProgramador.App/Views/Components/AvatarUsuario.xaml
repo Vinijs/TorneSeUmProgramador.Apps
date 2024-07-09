@@ -18,11 +18,18 @@
         <Grid
             Grid.ColumnSpan="2"                    
             Grid.RowSpan="2">
-            <Image 
-            Source="{Binding FotoUsuario}"
-            WidthRequest="50"
-            Aspect="Fill"
-            HorizontalOptions="EndAndExpand"/>
+            <Border
+                BackgroundColor="Transparent"
+                HeightRequest="50"
+                HorizontalOptions="EndAndExpand"
+                StrokeShape="RoundRectangle 25"
+                WidthRequest="50">
+                <Image 
+                Source="{Binding FotoUsuario}"
+                WidthRequest="50"
+                Aspect="Fill"
+                HorizontalOptions="EndAndExpand"/>
+            </Border>
             <Image
                 HorizontalOptions="End"
                 VerticalOptions="End"
