@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Viagens.TorneSeUmProgramador.App.ViewModels"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.Login"
-             BackgroundColor="#6067EC">
-    <ContentPage.BindingContext>
-    <vm:LoginViewModel />
-    </ContentPage.BindingContext>
+             BackgroundColor="#6067EC" x:DataType="vm:LoginViewModel">
     <FlexLayout VerticalOptions="Center" Direction="Column" JustifyContent="SpaceAround">
         <Image
             Source="logo.png" />
@@ -18,7 +15,8 @@
                     Padding="5"
                     BackgroundColor="White">
                 <Entry
-                    Placeholder="Usuário"
+                    Placeholder="Email"
+                    Text="{Binding Email}"
                     PlaceholderColor="{StaticResource Gray400}"
                     Margin="10,0"/>
                 
@@ -33,6 +31,7 @@
                             HorizontalOptions="FillAndExpand"
                             PlaceholderColor="{StaticResource Gray400}"
                             IsPassword="True"
+                            Text="{Binding Senha}"
                             Margin="10,0, 0,0"/>
                         <Image
                              Margin="10,0"
@@ -55,7 +54,12 @@
                     WidthRequest="160"
                     Margin="0,20,0,0"
                     CornerRadius="31"
-                    TextColor="White" />
+                    TextColor="White" >
+                    <Button.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TapEntrarCommand}" />
+                    </Button.GestureRecognizers>
+                    
+                </Button>
             </VerticalStackLayout>
             <VerticalStackLayout HorizontalOptions="Center" Spacing="20" Margin="0,10,0,0">
                 <Label

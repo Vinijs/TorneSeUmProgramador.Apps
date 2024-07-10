@@ -41,6 +41,7 @@ public static class InjecaoDependenciaExtensions
     {
         //serviços do app
         services.AddTransient<IBuscaService, BuscaService>();
+        services.AddTransient<IAuthService, AuthService>();
         services.AddSingleton<ILocalizacaoService, LocalizacaoService>();
         services.AddSingleton<IAppCache, AppCachePreferencesStorage>();
 
@@ -66,9 +67,16 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://c087-177-200-70-233.ngrok-free.app/")
+                .Add("viagens-api-client", "https://90b1-177-200-70-233.ngrok-free.app/")
         );
+
+        services.AddSingleton(sp =>
+            new FlurlClientCache()
+            .Add("auth-api-client", "https://90b1-177-200-70-233.ngrok-free.app/"));
+
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
+
+        services.AddSingleton<IAuthClient, AuthClient>();
 
         services.AddSingleton<IViagensProxy, ViagensProxy>();
 
