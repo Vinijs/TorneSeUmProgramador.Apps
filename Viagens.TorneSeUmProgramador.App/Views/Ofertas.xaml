@@ -9,7 +9,8 @@
              xmlns:components="clr-namespace:Viagens.TorneSeUmProgramador.App.Views.Components"
              x:DataType="vm:OfertasViewModel"
              >
-    <ContentPage.Resources>
+    <ScrollView>
+        <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TipoPacoteParaCorConverter x:Key="TipoPacoteParaCorConverter" />
             <DataTemplate x:Key="ItemParTemplate" x:DataType="dtos:OfertaDto">
@@ -79,7 +80,7 @@
 
             <DataTemplate x:Key="ItemImParTemplate" x:DataType="dtos:OfertaDto">
                 <Border 
-                    Margin="0,20,0,0"
+                    Margin="0,0,0,0"
                     BackgroundColor="{Binding TipoPacote, Converter={StaticResource TipoPacoteParaCorConverter}}"
                     StrokeShape="RoundRectangle 20">
                     <Grid Padding="10">
@@ -191,11 +192,22 @@
                 VerticalOptions="StartAndExpand"
                 HorizontalOptions="EndAndExpand"
                 ZIndex="1"/>
-            <CollectionView ItemsSource="{Binding Ofertas}" SelectionMode="None" Grid.Row="1" Margin="-5,10" ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}">
+            <CollectionView ItemsSource="{Binding OfertasPacoteAereo}" IsGrouped="True" SelectionMode="None" Grid.Row="1" Margin="-5,10" ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}">
+                <CollectionView.Header>
+                    <Label 
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            Text="Pacotes Aéreos"
+                            TextColor="{StaticResource Primary}"
+                            VerticalOptions="Start"/>
+                </CollectionView.Header>
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                    <GridItemsLayout Orientation="Horizontal" Span="1" />
                 </CollectionView.ItemsLayout>
             </CollectionView>
+
         </Grid>
     </Grid>
+    </ScrollView>
 </ContentPage>

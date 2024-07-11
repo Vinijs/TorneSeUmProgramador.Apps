@@ -16,6 +16,8 @@
 	<!-- Required only if your app needs to access audio files that other apps created -->
 	<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
+	<uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
 	<queries>
 		<intent>
 			<action android:name="android.media.action.IMAGE_CAPTURE" />

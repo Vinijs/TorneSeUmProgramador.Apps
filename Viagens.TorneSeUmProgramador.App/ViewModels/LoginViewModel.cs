@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Plugin.Fingerprint.Abstractions;
 using Viagens.TorneSeUmProgramador.Business.Services.Interfaces;
 using Viagens.TorneSeUmProgramador.Core.Common;
 using Viagens.TorneSeUmProgramador.Core.Dtos;
@@ -9,10 +10,12 @@ namespace Viagens.TorneSeUmProgramador.App.ViewModels;
 public sealed partial class LoginViewModel : ObservableObject
 {
     private readonly IAuthService _authService;
+    private readonly IFingerprint _fingerprint;
 
-    public LoginViewModel(IAuthService authService)
+    public LoginViewModel(IAuthService authService, IFingerprint fingerprint)
     {
         _authService = authService;
+        _fingerprint = fingerprint;
     }
 
     [ObservableProperty]
@@ -56,14 +59,27 @@ public sealed partial class LoginViewModel : ObservableObject
 
         if (resultado is ResultadoSucesso<ResultadoLoginDto> _)
         {
-            await App.Current.MainPage.DisplayAlert("Sucesso", "Login realizado com sucesso", "Ok");
+            await Shell.Current.GoToAsync("//home");
             return;
         }
 
         var falha = resultado as ResultadoFalha<ResultadoLoginDto>;
         await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
-        
-
-
     }
+
+    //[RelayCommand]
+    //public async Task OnTapBiometria()
+    //{
+    //    var result = await _fingerprint.AuthenticateAsync(
+    //        new AuthenticationRequestConfiguration("Acesso com biometria", "Para facilitar o seu acesso ao app utilize a biometria"));
+
+    //    if (result.Authenticated)
+    //    {
+    //        await Shell.Current.GoToAsync("//home");
+    //    }
+    //    else
+    //    {
+    //        await App.Current.MainPage.DisplayAlert("Erro", "Erro ao realizar autenticação biométrica", "Ok");
+    //    }
+    //}
 }

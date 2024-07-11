@@ -1,6 +1,8 @@
 ﻿using Flurl.Http.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Plugin.Fingerprint;
+using Plugin.Fingerprint.Abstractions;
 using Viagens.TorneSeUmProgramador.App.AppServices;
 using Viagens.TorneSeUmProgramador.App.Storages;
 using Viagens.TorneSeUmProgramador.App.ViewModels;
@@ -49,6 +51,7 @@ public static class InjecaoDependenciaExtensions
         services.AddSingleton<IConnectivity>(Connectivity.Current);
         services.AddSingleton<IGeolocation>(Geolocation.Default);
         services.AddSingleton<IMediaPicker>(MediaPicker.Default);
+        services.AddSingleton<IFingerprint>(CrossFingerprint.Current);
 
         return services;
     }
@@ -67,12 +70,9 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://90b1-177-200-70-233.ngrok-free.app/")
+                .Add("viagens-api-client", "https://7e42-2804-10f8-4311-7100-25c0-1ed7-3ca1-db7b.ngrok-free.app/")
+                .Add("auth-api-client", "https://7e42-2804-10f8-4311-7100-25c0-1ed7-3ca1-db7b.ngrok-free.app/")
         );
-
-        services.AddSingleton(sp =>
-            new FlurlClientCache()
-            .Add("auth-api-client", "https://90b1-177-200-70-233.ngrok-free.app/"));
 
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
 
