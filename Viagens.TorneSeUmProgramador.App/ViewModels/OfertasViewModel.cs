@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using Viagens.TorneSeUmProgramador.Business.Services.Interfaces;
 using Viagens.TorneSeUmProgramador.Core.Common;
 using Viagens.TorneSeUmProgramador.Core.Dtos;
 using Viagens.TorneSeUmProgramador.Core.Enums;
+using Viagens.TorneSeUmProgramador.Core.Extensions;
 
 namespace Viagens.TorneSeUmProgramador.App.ViewModels;
 
@@ -13,29 +15,32 @@ public sealed partial class OfertasViewModel : ObservableObject
     private readonly IConnectivity _connectivity;
 
     [ObservableProperty]
-    private ObservableCollection<OfertasAgrupadas> ofertasPacoteCompleto;
+    private ObservableCollection<OfertaDto> ofertasPacoteCompleto;
 
     [ObservableProperty]
-    private ObservableCollection<OfertasAgrupadas> ofertasPacoteAereo;
+    private ObservableCollection<OfertaDto> ofertasPacoteAereo;
 
     [ObservableProperty]
-    private ObservableCollection<OfertasAgrupadas> ofertasPacoteTerrestre;
+    private ObservableCollection<OfertaDto> ofertasPacoteTerrestre;
 
     [ObservableProperty]
-    private ObservableCollection<OfertasAgrupadas> ofertasPacoteHospedagem;
+    private ObservableCollection<OfertaDto> ofertasPacoteHospedagem;
 
     [ObservableProperty]
     private bool conexaoInterrompida;
+
+    [ObservableProperty]
+    private bool carregando;
 
     public OfertasViewModel(IBuscaService buscaService, 
                             IConnectivity connectivity)
     {
         _buscaService = buscaService;
         _connectivity = connectivity;
-        OfertasPacoteCompleto = new ObservableCollection<OfertasAgrupadas>();
-        OfertasPacoteAereo = new ObservableCollection<OfertasAgrupadas>();
-        OfertasPacoteTerrestre = new ObservableCollection<OfertasAgrupadas>();
-        OfertasPacoteHospedagem = new ObservableCollection<OfertasAgrupadas>();
+        OfertasPacoteCompleto = new ObservableCollection<OfertaDto>();
+        OfertasPacoteAereo = new ObservableCollection<OfertaDto>();
+        OfertasPacoteTerrestre = new ObservableCollection<OfertaDto>();
+        OfertasPacoteHospedagem = new ObservableCollection<OfertaDto>();
         _connectivity.ConnectivityChanged += EventoMudancaEstadoConexao;
     }
 
@@ -44,10 +49,10 @@ public sealed partial class OfertasViewModel : ObservableObject
         if (_connectivity.NetworkAccess != NetworkAccess.Internet)
         {
             await App.Current.MainPage.DisplayAlert("Erro", "Sem conexão com a internet", "OK");
-            OfertasPacoteCompleto = new ObservableCollection<OfertasAgrupadas>();
-            OfertasPacoteHospedagem = new ObservableCollection<OfertasAgrupadas>();
-            OfertasPacoteAereo = new ObservableCollection<OfertasAgrupadas>();
-            OfertasPacoteTerrestre = new ObservableCollection<OfertasAgrupadas>();
+            OfertasPacoteCompleto = new ObservableCollection<OfertaDto>();
+            OfertasPacoteHospedagem = new ObservableCollection<OfertaDto>();
+            OfertasPacoteAereo = new ObservableCollection<OfertaDto>();
+            OfertasPacoteTerrestre = new ObservableCollection<OfertaDto>();
             return;
         }
 
@@ -70,14 +75,64 @@ public sealed partial class OfertasViewModel : ObservableObject
         var resultado = await _buscaService.ObterOfertas();
         if (resultado is ResultadoSucesso<IEnumerable<OfertaDto>> ofertas)
         {
-            var ofertasAgrupadas = ofertas.Dados.GroupBy(x => x.TipoPacote)
-                .Select(x => new OfertasAgrupadas(x.Key, x));
-            OfertasPacoteAereo = new ObservableCollection<OfertasAgrupadas>(ofertasAgrupadas.Where(x => x.TipoPacote == TipoPacote.PassagemAerea.ToString()));
+            var ofertasDados = ofertas.Dados.ToList();
+            OfertasPacoteCompleto = new ObservableCollection<OfertaDto>(ofertasDados.Where
+                (x => x.TipoPacote == TipoPacote.Completo.ToString()).ToList());
+
+            OfertasPacoteTerrestre = new ObservableCollection<OfertaDto>(ofertasDados.Where
+                (x => x.TipoPacote == TipoPacote.PassagemTerrestre.ToString()).ToList());
+
+            OfertasPacoteHospedagem = new ObservableCollection<OfertaDto>(ofertasDados.Where
+                (x => x.TipoPacote == TipoPacote.Hospedagem.ToString()).ToList());
+
+            OfertasPacoteAereo = new ObservableCollection<OfertaDto>(ofertasDados.Where
+                (x => x.TipoPacote == TipoPacote.PassagemAerea.ToString()).ToList());
             return;
         }
 
         var falha = resultado as ResultadoFalha<IEnumerable<OfertaDto>>;
         await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
+    }
+
+    [RelayCommand]
+    public async Task OnRefresh()
+    {
+        Carregando = true;
+
+        var resultado = await _buscaService.ObterOfertas();
+
+        if (resultado is ResultadoSucesso<IEnumerable<OfertaDto>> ofertas)
+        {
+            var ofertasDados = ofertas.Dados.ToList();
+            var ofertaPacoteCompleto = ofertasDados.
+                Where(x => x.TipoPacote == TipoPacote.Completo.ToString()).ToList();
+            
+            OfertasPacoteCompleto.AddRange(ofertaPacoteCompleto);
+
+            var ofertasPacoteTerrestre = ofertasDados.
+                Where(x => x.TipoPacote == TipoPacote.PassagemTerrestre.ToString()).ToList();
+
+            OfertasPacoteTerrestre.AddRange(ofertasPacoteTerrestre);
+            
+
+            var ofertaPacoteHospedagem = ofertasDados.
+                Where(x => x.TipoPacote == TipoPacote.Hospedagem.ToString()).ToList();
+
+            OfertasPacoteHospedagem.AddRange(ofertaPacoteHospedagem);
+
+            var ofertaPacoteAereo = ofertasDados.
+                Where(x => x.TipoPacote == TipoPacote.PassagemAerea.ToString()).ToList();
+
+            OfertasPacoteAereo.AddRange(ofertaPacoteAereo);
+
+            Carregando = false;
+            return;
+        }
+
+        var falha = resultado as ResultadoFalha<IEnumerable<OfertaDto>>;
+        await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
+
+        
     }
 
     ~OfertasViewModel()

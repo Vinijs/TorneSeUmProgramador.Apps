@@ -26,18 +26,21 @@ namespace Viagens.TorneSeUmProgramador.App
             var sessao = cache.Get<SessaoUsuario>(AppConstants.CACHE_SESSAO_USUARIO)?.Dados;
 
             if (sessao is not null
-                && sessao.DataExpiracaoToken > DateTime.Now
-                && (await fingerPrint.IsAvailableAsync()))
+                && sessao.DataExpiracaoToken > DateTime.Now)
             {
-                var result = await fingerPrint.AuthenticateAsync(
-                new AuthenticationRequestConfiguration("Acesso com biometria", 
-                "Para facilitar o seu acesso ao app utilize a biometria"));
-
-                if (result.Authenticated)
+                if(await fingerPrint.IsAvailableAsync())
                 {
-                    await Shell.Current.GoToAsync("//home");
+                    var result = await fingerPrint.AuthenticateAsync(
+                    new AuthenticationRequestConfiguration("Acesso com biometria", 
+                    "Para facilitar o seu acesso ao app utilize a biometria"));
+
+                    if (result.Authenticated)
+                    {
+                        await Shell.Current.GoToAsync("//home");
+                    }
                 }
 
+                await Shell.Current.GoToAsync("//home");
             }
         }
     }

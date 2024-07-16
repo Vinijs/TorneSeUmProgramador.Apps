@@ -9,15 +9,16 @@
              xmlns:components="clr-namespace:Viagens.TorneSeUmProgramador.App.Views.Components"
              x:DataType="vm:OfertasViewModel"
              >
-    <ScrollView>
-        <ContentPage.Resources>
+    <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TipoPacoteParaCorConverter x:Key="TipoPacoteParaCorConverter" />
             <DataTemplate x:Key="ItemParTemplate" x:DataType="dtos:OfertaDto">
                 <Border 
-            Margin="0,0,0,20"
-            BackgroundColor="{Binding TipoPacote, Converter={StaticResource TipoPacoteParaCorConverter}}"
-            StrokeShape="RoundRectangle 20">
+                    Margin="0,0,0,20"
+                    BackgroundColor="{Binding TipoPacote, Converter={StaticResource TipoPacoteParaCorConverter}}"
+                    StrokeShape="RoundRectangle 20"
+                    HeightRequest="250"
+                    WidthRequest="200">
                     <Grid Padding="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -82,7 +83,9 @@
                 <Border 
                     Margin="0,0,0,0"
                     BackgroundColor="{Binding TipoPacote, Converter={StaticResource TipoPacoteParaCorConverter}}"
-                    StrokeShape="RoundRectangle 20">
+                    StrokeShape="RoundRectangle 20"
+                    HeightRequest="250"
+                    WidthRequest="200">
                     <Grid Padding="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -148,66 +151,136 @@
             
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid Padding="20" RowDefinitions="*,5*" ColumnDefinitions="*">
-        <VerticalStackLayout>
-            <components:AvatarUsuario MensagemTela="Encontre Promoções" TelaComponente="Ofertas"/>
-            
-            <Border
-                StrokeShape="RoundRectangle 31"
-                Grid.Row="1"
-                BackgroundColor="{StaticResource Gray200}"
-                Margin="0,20">
-                <SearchBar Placeholder="Onde você deseja conhecer?" />
-            </Border>
-        </VerticalStackLayout>
+    <RefreshView Command="{Binding RefreshCommand}"
+                 x:Name="RefreshView"
+                 IsRefreshing="{Binding Carregando}"
+                 RefreshColor="{StaticResource Primary}"
+                 >
+        <ScrollView>
+            <Grid Padding="20" RowDefinitions="*,5*" ColumnDefinitions="*">
+                <VerticalStackLayout>
+                    <components:AvatarUsuario MensagemTela="Encontre Promoções" TelaComponente="Ofertas"/>
 
-        <Grid Grid.Row="1" ColumnDefinitions="*" RowDefinitions="*,4*">
-            <VerticalStackLayout>
-                <Label 
-                    Text="Melhores Ofertas"
-                    Style="{StaticResource LabelTitle}"
-                    FontSize="20"
-                    Margin="0,35,0,20"/>
-                <Label Text="Ordenar Por:" Style="{StaticResource LabelSmall}" />
-                <FlexLayout Direction="Row" JustifyContent="SpaceBetween" Grid.Row="1">
-                    <HorizontalStackLayout Spacing="10">
-                        <CheckBox />
-                        <Label Text="Preço" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="10">
-                        <CheckBox />
-                        <Label Text="Popularidade" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="10">
-                        <CheckBox />
-                        <Label Text="Ativa" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </FlexLayout>
-            </VerticalStackLayout>
+                    <Border
+                        StrokeShape="RoundRectangle 31"
+                        Grid.Row="1"
+                        BackgroundColor="{StaticResource Gray200}"
+                        Margin="0,20">
+                        <SearchBar Placeholder="Onde você deseja conhecer?" />
+                    </Border>
+                </VerticalStackLayout>
 
-            <Image
-                Source="sale_icon.png"
-                Grid.Row="1"
-                HeightRequest="50"
-                VerticalOptions="StartAndExpand"
-                HorizontalOptions="EndAndExpand"
-                ZIndex="1"/>
-            <CollectionView ItemsSource="{Binding OfertasPacoteAereo}" IsGrouped="True" SelectionMode="None" Grid.Row="1" Margin="-5,10" ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}">
-                <CollectionView.Header>
+                <Grid Grid.Row="1" ColumnDefinitions="*" RowDefinitions="*,Auto,Auto,Auto,Auto">
+                    <VerticalStackLayout>
+                        <Label 
+                            Text="Melhores Ofertas"
+                            Style="{StaticResource LabelTitle}"
+                            FontSize="20"
+                            Margin="0,35,0,20"/>
+                        <Label Text="Ordenar Por:" Style="{StaticResource LabelSmall}" />
+                        <FlexLayout Direction="Row" JustifyContent="SpaceBetween" Grid.Row="1">
+                            <HorizontalStackLayout Spacing="10">
+                                <CheckBox />
+                                <Label Text="Preço" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="10">
+                                <CheckBox />
+                                <Label Text="Popularidade" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="10">
+                                <CheckBox />
+                                <Label Text="Ativa" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </FlexLayout>
+                    </VerticalStackLayout>
+
+                    <Image
+                        Source="sale_icon.png"
+                        Grid.Row="1"
+                        HeightRequest="50"
+                        VerticalOptions="StartAndExpand"
+                        HorizontalOptions="EndAndExpand"
+                        ZIndex="1"/>
                     <Label 
-                            FontAttributes="Bold"
-                            FontSize="16"
-                            HorizontalOptions="Start"
-                            Text="Pacotes Aéreos"
-                            TextColor="{StaticResource Primary}"
-                            VerticalOptions="Start"/>
-                </CollectionView.Header>
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" Span="1" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        TextColor="{StaticResource Completo}"
+                        Margin="0,0,0,10"
+                        HorizontalOptions="Start"
+                        Text="Pacotes Completos"/>
+                    <CarouselView 
+                            Grid.Row="1"
+                            Margin="0,20"
+                            HorizontalOptions="FillAndExpand"
+                            ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}"
+                            ItemsSource="{Binding OfertasPacoteCompleto}"
+                            Loop="False"
+                            PeekAreaInsets="90,0,5,0"
+                            HeightRequest="250"
+                            VerticalOptions="StartAndExpand" />
 
-        </Grid>
-    </Grid>
-    </ScrollView>
+                    <Label 
+                        Grid.Row="2"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        TextColor="{StaticResource PassagemTerrestre}"
+                        Margin="0,0,0,10"
+                        HorizontalOptions="Start"
+                        Text="Pacotes Terrestres"/>
+                    <CarouselView 
+                            Grid.Row="2"
+                            Margin="0,20"
+                            RemainingItemsThreshold="2"
+                            RemainingItemsThresholdReachedCommand="{Binding RefreshCommand}"
+                            HorizontalOptions="FillAndExpand"
+                            ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}"
+                            ItemsSource="{Binding OfertasPacoteTerrestre}"
+                            Loop="False"
+                            PeekAreaInsets="90,0,5,0"
+                            HeightRequest="250"
+                            VerticalOptions="StartAndExpand" />
+
+                    <Label 
+                         Grid.Row="3"
+                         FontAttributes="Bold"
+                         FontSize="12"
+                         TextColor="{StaticResource Hospedagem}"
+                         Margin="0,0,0,10"
+                         HorizontalOptions="Start"
+                         Text="Pacotes Hospedagem"/>
+                    <CarouselView 
+                             Grid.Row="3"
+                             Margin="0,20"
+                             HorizontalOptions="FillAndExpand"
+                             ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}"
+                             ItemsSource="{Binding OfertasPacoteHospedagem}"
+                             Loop="False"
+                             PeekAreaInsets="90,0,5,0"
+                             HeightRequest="250"
+                             VerticalOptions="StartAndExpand" />
+
+                    <Label 
+                         Grid.Row="4"
+                         FontAttributes="Bold"
+                         FontSize="12"
+                         TextColor="{StaticResource PassagemAerea}"
+                         Margin="0,0,0,10"
+                         HorizontalOptions="Start"
+                         Text="Pacotes Aereo"/>
+                    <CarouselView 
+                             Grid.Row="4"
+                             Margin="0,20"
+                             HorizontalOptions="FillAndExpand"
+                             ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}"
+                             ItemsSource="{Binding OfertasPacoteAereo}"
+                             Loop="False"
+                             PeekAreaInsets="90,0,5,0"
+                             HeightRequest="250"
+                             VerticalOptions="StartAndExpand" />
+
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>
