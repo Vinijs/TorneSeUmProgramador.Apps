@@ -67,4 +67,22 @@ public class BuscaService : IBuscaService
                 (CodigoErro.ErroInterno, "Ocorreu um erro ao buscar ofertas! Tente mais tarde");
         }
     }
+
+    public async Task<IResultado<IEnumerable<OfertaDto>>> ObterOfertasPaginadas(BuscaOfertasPaginadaRequest request)
+    {
+        try
+        {
+            _logger.Informacao("Iniciando buscas ofertas paginadas");
+
+            var ofertas = await _viagensProxy.ObterOfertasPaginadas(request);
+
+            return Resultado.Sucesso<IEnumerable<OfertaDto>>(ofertas);
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar ofertas paginadas");
+            return Resultado.Falha<IEnumerable<OfertaDto>>
+                (CodigoErro.ErroInterno, "Ocorreu um erro ao buscar ofertas paginadas! Tente mais tarde");
+        }
+    }
 }

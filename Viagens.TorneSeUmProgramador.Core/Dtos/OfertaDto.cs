@@ -4,6 +4,7 @@ namespace Viagens.TorneSeUmProgramador.Core.Dtos;
 
 public class OfertaDto
 {
+    public int Id { get; set; }
     public string? Imagem { get; set; }
     public string? Titulo { get; set; }
     public string? Local { get; set; }

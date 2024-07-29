@@ -6,4 +6,5 @@ public interface IViagensProxy
 {
     Task<List<MaisBuscadosDto>> ObterMaisBuscados();
     Task<List<OfertaDto>> ObterOfertas();
+    Task<List<OfertaDto>> ObterOfertasPaginadas(BuscaOfertasPaginadaRequest request);
 }

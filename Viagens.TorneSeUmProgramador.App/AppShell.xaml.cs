@@ -9,6 +9,7 @@ namespace Viagens.TorneSeUmProgramador.App
             InitializeComponent();
 
             Routing.RegisterRoute("home/busca-passagem-aerea", typeof(BuscaPassagemAerea));
+            Routing.RegisterRoute("ofertas/detalhes-viagem-oferta", typeof(DetalhesViagemOferta));
         }
     }
 }

@@ -9,6 +9,7 @@ public sealed class ViagensApiClient : IViagensApiClient
 {
     private const string _mais_buscados = "viagens/mais-buscadas";
     private const string _ofertas = "viagens/ofertas";
+    private const string _ofertas_paginadas = "viagens/ofertas-paginadas";
 
     public readonly IFlurlClient _flurlClient;
     public readonly IAppLogger<ViagensApiClient> _logger;
@@ -43,6 +44,23 @@ public sealed class ViagensApiClient : IViagensApiClient
         catch (Exception ex)
         {
             _logger.Erro(ex, "Erro ao buscar ofertas");
+            throw;
+        }
+    }
+
+    public Task<List<OfertaDto>> ObterOfertasPaginadas(BuscaOfertasPaginadaRequest request)
+    {
+        try
+        {
+            return _flurlClient.Request(_ofertas_paginadas)
+                               .SetQueryParam("pagina", request.Pagina)
+                               .SetQueryParam("itensPorPagina", request.QuantidadePorPagina)
+                               .SetQueryParam("tipoOferta", request.TipoOferta)
+                               .GetJsonAsync<List<OfertaDto>>();
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar ofertas paginadas");
             throw;
         }
     }

@@ -73,4 +73,19 @@ public class ViagensProxy : IViagensProxy
             throw;
         }
     }
+
+    public async Task<List<OfertaDto>> ObterOfertasPaginadas(BuscaOfertasPaginadaRequest request)
+    {
+        try
+        {
+            var ofertas = await _viagensApiClient.ObterOfertasPaginadas(request);
+
+            return ofertas;
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar ofertas paginadas");
+            throw;
+        }
+    }
 }

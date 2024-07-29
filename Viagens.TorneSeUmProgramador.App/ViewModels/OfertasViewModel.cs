@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using Viagens.TorneSeUmProgramador.App.Views;
 using Viagens.TorneSeUmProgramador.Business.Services.Interfaces;
 using Viagens.TorneSeUmProgramador.Core.Common;
 using Viagens.TorneSeUmProgramador.Core.Dtos;
@@ -13,6 +14,9 @@ public sealed partial class OfertasViewModel : ObservableObject
 {
     private readonly IBuscaService _buscaService;
     private readonly IConnectivity _connectivity;
+
+    private const int quantidadePorPagina = 10;
+    private int pagina = 1;
 
     [ObservableProperty]
     private ObservableCollection<OfertaDto> ofertasPacoteCompleto;
@@ -129,10 +133,42 @@ public sealed partial class OfertasViewModel : ObservableObject
             return;
         }
 
-        var falha = resultado as ResultadoFalha<IEnumerable<OfertaDto>>;
-        await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
+        //var falha = resultado as ResultadoFalha<IEnumerable<OfertaDto>>;
+        //await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
 
-        
+    }
+
+    [RelayCommand]
+    public async Task BuscarProximosItens(ObservableCollection<OfertaDto> ofertas)
+    {
+        var request = new BuscaOfertasPaginadaRequest
+        {
+            Pagina = pagina + 1,
+            QuantidadePorPagina = quantidadePorPagina,
+            TipoOferta = ofertas.First().TipoPacote
+        };
+
+        var resultado = await _buscaService.ObterOfertasPaginadas(request);
+
+        if(resultado is ResultadoSucesso<IEnumerable<OfertaDto>> ofertasPaginadas)
+        {
+            var ofertasDados = ofertasPaginadas.Dados.ToList();
+            ofertas.AddRange(ofertasDados);
+            pagina++;
+            return;
+        }
+
+        var falha = resultado as ResultadoFalha<IEnumerable<OfertaDto>>;
+        await App.Current.MainPage.DisplayAlert("Erro", string.Join("", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
+    }
+
+    [RelayCommand]
+    public async Task NavegarParaDetalhes(OfertaDto oferta)
+    {
+        await App.Current.MainPage.Navigation.PushAsync(new DetalhesViagemOferta());
+        // Buscar a oferta detalhe na api
+        //var resultado = await _buscaService.ObterDetalheOferta(oferta.Id);
+       // Navegar para a tela de detalhes passando o objeto oferta
     }
 
     ~OfertasViewModel()

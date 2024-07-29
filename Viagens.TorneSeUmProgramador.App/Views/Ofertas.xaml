@@ -143,6 +143,9 @@
                                 />
                         </StackLayout>
                     </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BindingContext.NavegarParaDetalhesCommand, Source={x:Reference RefreshView}}" CommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
                 </Border>
             </DataTemplate>
             <templateSelector:AlinhamentoCardTemplateSelector x:Key="AlinhamentoCardTemplateSelector" 
@@ -217,6 +220,9 @@
                             ItemsSource="{Binding OfertasPacoteCompleto}"
                             Loop="False"
                             PeekAreaInsets="90,0,5,0"
+                            RemainingItemsThreshold="1"
+                            RemainingItemsThresholdReachedCommand="{Binding BuscarProximosItensCommand}"
+                            RemainingItemsThresholdReachedCommandParameter="{Binding OfertasPacoteCompleto}"
                             HeightRequest="250"
                             VerticalOptions="StartAndExpand" />
 
@@ -231,13 +237,14 @@
                     <CarouselView 
                             Grid.Row="2"
                             Margin="0,20"
-                            RemainingItemsThreshold="2"
-                            RemainingItemsThresholdReachedCommand="{Binding RefreshCommand}"
                             HorizontalOptions="FillAndExpand"
                             ItemTemplate="{StaticResource AlinhamentoCardTemplateSelector}"
                             ItemsSource="{Binding OfertasPacoteTerrestre}"
                             Loop="False"
                             PeekAreaInsets="90,0,5,0"
+                            RemainingItemsThreshold="1"
+                            RemainingItemsThresholdReachedCommand="{Binding BuscarProximosItensCommand}"
+                            RemainingItemsThresholdReachedCommandParameter="{Binding OfertasPacoteTerrestre}"
                             HeightRequest="250"
                             VerticalOptions="StartAndExpand" />
 
@@ -257,6 +264,9 @@
                              ItemsSource="{Binding OfertasPacoteHospedagem}"
                              Loop="False"
                              PeekAreaInsets="90,0,5,0"
+                             RemainingItemsThreshold="1"
+                             RemainingItemsThresholdReachedCommand="{Binding BuscarProximosItensCommand}"
+                             RemainingItemsThresholdReachedCommandParameter="{Binding OfertasPacoteHospedagem}"
                              HeightRequest="250"
                              VerticalOptions="StartAndExpand" />
 
@@ -267,7 +277,7 @@
                          TextColor="{StaticResource PassagemAerea}"
                          Margin="0,0,0,10"
                          HorizontalOptions="Start"
-                         Text="Pacotes Aereo"/>
+                         Text="Pacotes Aereos"/>
                     <CarouselView 
                              Grid.Row="4"
                              Margin="0,20"
@@ -276,6 +286,9 @@
                              ItemsSource="{Binding OfertasPacoteAereo}"
                              Loop="False"
                              PeekAreaInsets="90,0,5,0"
+                             RemainingItemsThreshold="1"
+                             RemainingItemsThresholdReachedCommand="{Binding BuscarProximosItensCommand}"
+                             RemainingItemsThresholdReachedCommandParameter="{Binding OfertasPacoteAereo}"
                              HeightRequest="250"
                              VerticalOptions="StartAndExpand" />
 
