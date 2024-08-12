@@ -71,6 +71,7 @@
 	  <None Remove="Resources\Images\sale_icon.svg" />
 	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\ui_user.svg" />
+	  <None Remove="Resources\Images\whatsapp_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -94,6 +95,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\AvatarUsuario.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Components\WhatsAppChat.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DetalhesViagemOferta.xaml">

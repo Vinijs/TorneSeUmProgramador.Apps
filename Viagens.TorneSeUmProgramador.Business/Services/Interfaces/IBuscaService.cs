@@ -8,4 +8,5 @@ public interface IBuscaService
     Task<IResultado<IEnumerable<MaisBuscadosDto>>> ObterViagensMaisBuscadas();
     Task<IResultado<IEnumerable<OfertaDto>>> ObterOfertas();
     Task<IResultado<IEnumerable<OfertaDto>>> ObterOfertasPaginadas(BuscaOfertasPaginadaRequest request);
+    Task<IResultado<DetalheOfertaViagemDto>> ObterDetalheOferta(int id);
 }

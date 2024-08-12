@@ -22,6 +22,19 @@ public class ViagensProxy : IViagensProxy
         _logger = logger;
     }
 
+    public Task<DetalheOfertaViagemDto> ObterDetalheOferta(int id)
+    {
+        try
+        {
+            return _viagensApiClient.ObterDetalheOferta(id);
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar detalhes ofertas");
+            throw;
+        }
+    }
+
     public async Task<List<MaisBuscadosDto>> ObterMaisBuscados()
     {
         try

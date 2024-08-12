@@ -2,13 +2,187 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Viagens.TorneSeUmProgramador.App.Views.DetalhesViagemOferta"
-             Title="DetalhesViagemOferta">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             xmlns:vm="clr-namespace:Viagens.TorneSeUmProgramador.App.ViewModels"
+             xmlns:dto="clr-namespace:Viagens.TorneSeUmProgramador.Core.Dtos;assembly=Viagens.TorneSeUmProgramador.Core"
+             xmlns:components="clr-namespace:Viagens.TorneSeUmProgramador.App.Views.Components"
+             Title="DetalhesViagemOferta" x:DataType="vm:DetalhesViagemOfertaViewModel">
+    <AbsoluteLayout>
+        <ScrollView>
+            <StackLayout Padding="10">
 
-        <!--<Button Clicked="Button_Clicked" Text="Fechar navegação" />-->
-    </VerticalStackLayout>
+                <!--  Imagem Principal  -->
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="200"
+                    Source="{Binding Oferta.ImagemUrl}" />
+
+                <!--  Título e Descrição  -->
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    Text="{Binding Oferta.Titulo}" />
+                <Label FontSize="18" Text="{Binding Oferta.Descricao}" />
+
+                <!--  Descrição Detalhada  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Descrição Detalhada" />
+                <Label FontSize="16" Text="{Binding Oferta.DescricaoDetalhada}" />
+
+                <!--  Inclusões e Exclusões  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Inclusões" />
+                <CollectionView ItemsSource="{Binding Oferta.Inclusoes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="16" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Exclusões" />
+                <CollectionView ItemsSource="{Binding Oferta.Exclusoes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="16" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  Datas Disponíveis  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Datas Disponíveis" />
+                <CollectionView ItemsSource="{Binding Oferta.DatasDisponiveis}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="16" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  Política de Cancelamento  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Política de Cancelamento" />
+                <Label FontSize="16" Text="{Binding Oferta.PoliticaCancelamento}" />
+
+                <!--  Avaliações  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Avaliações" />
+                <CollectionView ItemsSource="{Binding Oferta.Avaliacoes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="dto:AvaliacaoDto">
+                            <StackLayout Margin="0,0,0,10" Orientation="Vertical">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding Usuario}" />
+                                <Label FontSize="16" Text="{Binding Nota}" />
+                                <Label FontSize="16" Text="{Binding Comentario}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  Itinerário  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Itinerário" />
+                <CollectionView ItemsSource="{Binding Oferta.Itinerario}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="16" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  Contato e Opções de Pagamento  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Informações de Contato" />
+                <Label FontSize="16" Text="{Binding Oferta.InformacoesContato}" />
+
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Opções de Pagamento" />
+                <CollectionView ItemsSource="{Binding Oferta.OpcoesPagamento}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="16" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  Seguro de Viagem  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Seguro de Viagem" />
+                <Label FontSize="16" Text="{Binding Oferta.SeguroViagem}" />
+
+                <!--  Imagens e Vídeos  -->
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Galeria de Imagens" />
+                <ScrollView Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding Oferta.Imagens}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image
+                                        Margin="5"
+                                        Aspect="AspectFill"
+                                        HeightRequest="100"
+                                        Source="{Binding .}"
+                                        WidthRequest="100" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+
+                <Label
+                    Margin="0,10,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Vídeos" />
+                <CollectionView ItemsSource="{Binding Oferta.Videos}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label FontSize="16" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </ScrollView>
+
+        <components:WhatsAppChat/>
+    </AbsoluteLayout>
 </ContentPage>

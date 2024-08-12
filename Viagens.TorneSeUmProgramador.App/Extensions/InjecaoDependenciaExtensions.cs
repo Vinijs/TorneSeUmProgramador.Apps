@@ -1,6 +1,4 @@
 ﻿using Flurl.Http.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Plugin.Fingerprint;
 using Plugin.Fingerprint.Abstractions;
 using Viagens.TorneSeUmProgramador.App.AppServices;
@@ -36,6 +34,8 @@ public static class InjecaoDependenciaExtensions
         services.AddTransient<PaginaInicialViewModel>();
         services.AddTransient<OfertasViewModel>();
         services.AddTransient<AvatarUsuarioViewModel>();
+        services.AddTransient<DetalhesViagemOfertaViewModel>();
+        services.AddTransient<WhatsAppChatViewModel>();
         return services;
     }
 
@@ -70,8 +70,8 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://6ad5-2804-10f8-4311-7100-a8e7-ddf6-631-e81d.ngrok-free.app/")
-                .Add("auth-api-client", "https://6ad5-2804-10f8-4311-7100-a8e7-ddf6-631-e81d.ngrok-free.app/")
+                .Add("viagens-api-client", "https://faea-2804-10f8-4311-7100-a97e-67af-3905-3295.ngrok-free.app/")
+                .Add("auth-api-client", "https://faea-2804-10f8-4311-7100-a97e-67af-3905-3295.ngrok-free.app/")
         );
 
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
@@ -92,6 +92,7 @@ public static class InjecaoDependenciaExtensions
         services.AddSingleton<MinhasViagens>();
         services.AddSingleton<Ofertas>();
         services.AddSingleton<Perfil>();
+        services.AddSingleton<DetalhesViagemOferta>();
         return services;
     }
     

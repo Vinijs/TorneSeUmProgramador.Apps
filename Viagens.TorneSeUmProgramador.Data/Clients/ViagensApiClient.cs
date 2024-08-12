@@ -20,6 +20,20 @@ public sealed class ViagensApiClient : IViagensApiClient
         _logger = logger;
     }
 
+    public async Task<DetalheOfertaViagemDto> ObterDetalheOferta(int id)
+    {
+        try
+        {
+            return await _flurlClient.Request($"{_ofertas}/{id}")
+                .GetJsonAsync<DetalheOfertaViagemDto>();
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar detalhes viagem");
+            throw;
+        }
+    }
+
     public async Task<List<MaisBuscadosDto>> ObterMaisBuscados()
     {
         try

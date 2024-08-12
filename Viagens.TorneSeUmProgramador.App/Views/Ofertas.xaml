@@ -26,56 +26,59 @@
                         </Grid.RowDefinitions>
                         <Border Margin="-5" StrokeShape="RoundRectangle 20 20 0 0">
                             <Image
-                    Aspect="AspectFill"
-                    Source="{Binding Imagem}" />
+                                Aspect="AspectFill"
+                                Source="{Binding Imagem}" />
                         </Border>
                         <Image
-                Source="chama_icon.png"
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
-                Margin="2"/>
+                            Margin="2"
+                            HorizontalOptions="Start"
+                            Source="chama_icon.png"
+                            VerticalOptions="Start"/>
                         <Border
-                Margin="2"
-                HorizontalOptions="EndAndExpand"
-                BackgroundColor="{StaticResource Gray100}"
-                VerticalOptions="StartAndExpand"
-                StrokeShape="RoundRectangle 20">
+                            Margin="2"
+                            BackgroundColor="{StaticResource Gray100}"
+                            HorizontalOptions="EndAndExpand"
+                            StrokeShape="RoundRectangle 20"
+                            VerticalOptions="StartAndExpand">
                             <StackLayout 
-                            Padding="4"
-                            Orientation="Vertical"
-                            HorizontalOptions="FillAndExpand">
+                                Padding="4"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical">
                                 <Label
-                        FontAttributes="Bold"
-                        FontSize="8"
-                        Text="{Binding PrecoAnterior, StringFormat='{0:C}'}"
-                        TextDecorations="Strikethrough"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        TextColor="Black" />
+                                    FontAttributes="Bold"
+                                    FontSize="8"
+                                    Text="{Binding PrecoAnterior, StringFormat='{0:C}'}"
+                                    TextDecorations="Strikethrough"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="Black" />
                                 <Label
-                        FontAttributes="Bold"
-                        FontSize="12"
-                        Text="{Binding Preco, StringFormat='{0:C}'}"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        TextColor="Black" />
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    Text="{Binding Preco, StringFormat='{0:C}'}"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="Black" />
                             </StackLayout>
                         </Border>
                         <StackLayout
-                    Grid.Row="1"
-                    Margin="0,10,0,0"
-                    Orientation="Vertical">
+                            Grid.Row="1"
+                            Margin="0,10,0,0"
+                            Orientation="Vertical">
                             <Label
-                        FontAttributes="Bold"
-                        HorizontalOptions="Center"
-                        Text="{Binding Local}" />
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="{Binding Local}" />
                             <Label
-                    HorizontalOptions="Center"
-                    Text="{Binding Data}"
-                    TextColor="White"
-                    />
+                                HorizontalOptions="Center"
+                                Text="{Binding Data}"
+                                TextColor="White"
+                                />
                         </StackLayout>
                     </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BindingContext.NavegarParaDetalhesCommand, Source={x:Reference RefreshView}}" CommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
                 </Border>
             </DataTemplate>
 

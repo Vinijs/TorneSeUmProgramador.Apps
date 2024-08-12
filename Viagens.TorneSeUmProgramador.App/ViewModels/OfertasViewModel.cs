@@ -159,16 +159,28 @@ public sealed partial class OfertasViewModel : ObservableObject
         }
 
         var falha = resultado as ResultadoFalha<IEnumerable<OfertaDto>>;
-        await App.Current.MainPage.DisplayAlert("Erro", string.Join("", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
+        await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ", falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
     }
 
     [RelayCommand]
     public async Task NavegarParaDetalhes(OfertaDto oferta)
     {
-        await App.Current.MainPage.Navigation.PushAsync(new DetalhesViagemOferta());
+        //await App.Current.MainPage.Navigation.PushAsync(new DetalhesViagemOferta());
         // Buscar a oferta detalhe na api
-        //var resultado = await _buscaService.ObterDetalheOferta(oferta.Id);
+        var resultado = await _buscaService.ObterDetalheOferta(oferta.Id);
        // Navegar para a tela de detalhes passando o objeto oferta
+       if(resultado is ResultadoSucesso<DetalheOfertaViagemDto> detalhe)
+       {
+            var parametros = new Dictionary<string, object>
+            {
+                { "detalheOferta", detalhe.Dados }
+            };
+            await Shell.Current.GoToAsync("///ofertas/detalhes-viagem-oferta", parametros);
+            return;
+       }
+
+        var falha = resultado as ResultadoFalha<DetalheOfertaViagemDto>;
+        await App.Current.MainPage.DisplayAlert("Erro", string.Join(" ",falha.Detalhe.Mensagens.Select(x => x.Texto)), "Ok");
     }
 
     ~OfertasViewModel()

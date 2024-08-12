@@ -85,4 +85,20 @@ public class BuscaService : IBuscaService
                 (CodigoErro.ErroInterno, "Ocorreu um erro ao buscar ofertas paginadas! Tente mais tarde");
         }
     }
+
+    public async Task<IResultado<DetalheOfertaViagemDto>> ObterDetalheOferta(int id)
+    {
+        try
+        {
+            var detalheOferta = await _viagensProxy.ObterDetalheOferta(id);
+
+            return Resultado.Sucesso(detalheOferta);
+        }
+        catch (Exception ex)
+        {
+            _logger.Erro(ex, "Erro ao buscar detalhe viagem");
+            return Resultado.Falha<DetalheOfertaViagemDto>
+                (CodigoErro.ErroInterno, "Ocorreu um erro ao buscar detalhe da viagem! Tente mais tarde");
+        }
+    }
 }
