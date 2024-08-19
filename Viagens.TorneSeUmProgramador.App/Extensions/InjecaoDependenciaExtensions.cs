@@ -45,6 +45,7 @@ public static class InjecaoDependenciaExtensions
         services.AddTransient<IBuscaService, BuscaService>();
         services.AddTransient<IAuthService, AuthService>();
         services.AddSingleton<ILocalizacaoService, LocalizacaoService>();
+        services.AddSingleton<IDeepLinkService, DeepLinkService>();
         services.AddSingleton<IAppCache, AppCachePreferencesStorage>();
 
         //serviços nativos
@@ -52,6 +53,7 @@ public static class InjecaoDependenciaExtensions
         services.AddSingleton<IGeolocation>(Geolocation.Default);
         services.AddSingleton<IMediaPicker>(MediaPicker.Default);
         services.AddSingleton<IFingerprint>(CrossFingerprint.Current);
+        services.AddSingleton<ILauncher>(Launcher.Default);
 
         return services;
     }
@@ -70,8 +72,8 @@ public static class InjecaoDependenciaExtensions
     {
         services.AddSingleton(sp => 
             new FlurlClientCache()
-                .Add("viagens-api-client", "https://faea-2804-10f8-4311-7100-a97e-67af-3905-3295.ngrok-free.app/")
-                .Add("auth-api-client", "https://faea-2804-10f8-4311-7100-a97e-67af-3905-3295.ngrok-free.app/")
+                .Add("viagens-api-client", "https://8bc1-2804-10f8-4311-7100-7040-5115-43b-e42d.ngrok-free.app/")
+                .Add("auth-api-client", "https://8bc1-2804-10f8-4311-7100-7040-5115-43b-e42d.ngrok-free.app/")
         );
 
         services.AddSingleton<IViagensApiClient, ViagensApiClient>();
